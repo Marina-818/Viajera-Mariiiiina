@@ -322,7 +322,9 @@ table.cost tr.sum td{border-top:2px solid var(--line);border-bottom:0;font-weigh
 .notice{font-size:11.5px;color:var(--ink2);background:var(--soft);border:2px dashed var(--line);border-radius:12px;padding:8px 10px;margin-top:10px}
 footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;line-height:1.8}
 .expandall{display:flex;gap:8px;margin:0}
-.barsticky{position:sticky;position:-webkit-sticky;top:0;z-index:60;margin:12px 0 0;padding:8px 0 10px;background:var(--paper);box-shadow:0 6px 12px -8px var(--shadow)}
+/* 「在路上」板块：按钮栏在板块范围内冻结置顶（Excel 式区域冻结），滚出板块自动解除 */
+.daysec{position:relative}
+.barsticky{position:sticky;position:-webkit-sticky;top:0;z-index:60;margin:12px 0 0;padding:8px 0 10px;background:var(--paper);border-bottom:2px solid var(--line);box-shadow:0 6px 12px -8px var(--shadow)}
 .expandall button{
   flex:1;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px;border:2.5px solid var(--line);border-radius:12px;
   background:var(--paper2);color:var(--ink);cursor:pointer;box-shadow:2px 2px 0 var(--shadow)
@@ -393,14 +395,16 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 
 <!-- 逐日 -->
 <h2 class="sec-title"><span class="n">4</span>在路上</h2>
-<div class="barsticky">
-  <div class="expandall">
-    <button id="btnAll">全部展开</button>
-    <button id="btnNone">全部收起</button>
-    <button id="btnToday">只看今天</button>
+<div class="daysec">
+  <div class="barsticky">
+    <div class="expandall">
+      <button id="btnAll">全部展开</button>
+      <button id="btnNone">全部收起</button>
+      <button id="btnToday">只看今天</button>
+    </div>
   </div>
+  <div id="days"></div>
 </div>
-<div id="days"></div>
 
 <!-- 贴士 -->
 <h2 class="sec-title"><span class="n">5</span>实用贴士</h2>
