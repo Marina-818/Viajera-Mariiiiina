@@ -163,9 +163,10 @@ h1.big::before{
 
 /* ---------- map ---------- */
 .mapsvg{width:100%;height:auto;display:block;border-radius:10px}
-.mapimg{width:100%;height:auto;display:block;border-radius:10px;border:1.5px solid var(--line)}
-.maplbl{font-size:12px;font-weight:800;color:var(--ink2);margin:12px 0 5px;display:flex;align-items:center;gap:6px}
-.maplbl:first-child{margin-top:2px}
+.mapimg{width:100%;height:auto;display:block;border-radius:8px}
+.mapframe{background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:9px;box-shadow:0 2px 8px var(--shadow);margin-bottom:12px}
+.mapframe:last-child{margin-bottom:0}
+.maplbl{font-size:12px;font-weight:800;color:var(--ink2);margin:0 0 7px;display:flex;align-items:center;gap:6px}
 .maplbl::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none}
 .legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11.5px;color:var(--ink2);margin-top:6px;justify-content:center}
 .legend i{display:inline-block;width:11px;height:11px;border:1.5px solid var(--line);border-radius:50%;margin-right:4px;vertical-align:-1px}
@@ -362,7 +363,10 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 <h2 class="sec-title"><span class="n">2</span>行程总览地图</h2>
 <div class="sub">皖豫鄂赣环线自驾 · 全程约 2526 km · 10 天 9 晚</div>
 <div class="card flat" style="padding:0;overflow:hidden">
-  <img class="mapimg" src="maps/overview.png" alt="皖豫鄂赣环线自驾路线总览" loading="lazy">
+  <div class="mapframe">
+    <div class="maplbl">皖豫鄂赣环线自驾 · 全程总览</div>
+    <img class="mapimg" src="maps/overview.webp" alt="皖豫鄂赣环线自驾路线总览" loading="lazy">
+  </div>
 </div>
 
 <!-- ④ 此刻关注 -->
@@ -823,22 +827,22 @@ function doodleBg(W,H,baseY,gh,gop,clouds){
 function drawBigMap(){ return; }
 /* 每日打卡地图（map-creator 生成 · 只保留地图部分；多城日按城市分张） */
 var DAYMAPS = {
-  d1:[['d1.png','寿县古城 · 南门/护城河']],
-  d2:[['d2.png','寿县古城 · 步行打卡']],
-  d3:[['d3.png','开封 · 包公湖片区']],
-  d4:[['d4.png','开封 · 博物馆/清明上河园']],
-  d5:[['d5.png','许昌城区']],
-  d6:[['d6.png','汝南 · 南海禅寺']],
-  d7:[['d7a.png','信阳城区'],['d7b.png','社旗 · 赊店古镇']],
-  d8:[['d8a.png','南阳 · 府衙片区'],['d8b.png','邓州 · 花洲书院']],
-  d9:[['d9a.png','襄阳 · 昭明台'],['d9b.png','岳阳 · 汴河街']],
-  d10:[['d10.png','岳阳楼']]
+  d1:[['d1.webp','寿县古城 · 南门/护城河']],
+  d2:[['d2.webp','寿县古城 · 步行打卡']],
+  d3:[['d3.webp','开封 · 包公湖片区']],
+  d4:[['d4.webp','开封 · 博物馆/清明上河园']],
+  d5:[['d5.webp','许昌城区']],
+  d6:[['d6.webp','汝南 · 南海禅寺']],
+  d7:[['d7a.webp','信阳城区'],['d7b.webp','社旗 · 赊店古镇']],
+  d8:[['d8a.webp','南阳 · 府衙片区'],['d8b.webp','邓州 · 花洲书院']],
+  d9:[['d9a.webp','襄阳 · 昭明台'],['d9b.webp','岳阳 · 汴河街']],
+  d10:[['d10.webp','岳阳楼']]
 };
 function dayMapHTML(day){
   var maps=DAYMAPS[day.id]||[], h='';
   maps.forEach(function(m){
-    h+='<div class="maplbl">'+m[1]+'</div>'+
-       '<img class="mapimg" src="maps/'+m[0]+'" alt="'+day.title+' 打卡地图 · '+m[1]+'" loading="lazy">';
+    h+='<div class="mapframe"><div class="maplbl">'+m[1]+'</div>'+
+       '<img class="mapimg" src="maps/'+m[0]+'" alt="'+day.title+' 打卡地图 · '+m[1]+'" loading="lazy"></div>';
   });
   return h||'<div style="font-size:12px;color:var(--ink3)">地图生成中…</div>';
 }
