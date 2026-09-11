@@ -300,6 +300,10 @@ table.cost tr.sum td{border-top:2px solid var(--line);border-bottom:0;font-weigh
 .hoteltop{display:flex;align-items:center;gap:8px;margin-top:6px}
 .hoteltop .ico{font-size:17px;line-height:1;flex:none}
 .hoteltop .hotelname{width:auto;flex:1;margin-top:0}
+.cancelbox{margin-top:9px;border:2px dashed var(--line);border-radius:12px;padding:9px 11px;background:var(--paper2);
+  display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.cancelbox .cxk{font-size:11.5px;font-weight:800;padding:3px 8px;border:2px solid var(--line);border-radius:8px;background:var(--card);flex:none;white-space:nowrap}
+.cancelbox .cxv{font-size:13px;font-weight:800;color:var(--ink);line-height:1.5}
 
 /* 门票计价 */
 .feerow{margin-top:8px;padding-top:7px;border-top:1px dashed var(--ink3)}
@@ -411,8 +415,6 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 
 <script>
 /* ==================== 数据 ==================== */
-var FREE_START = '2026-10-01T00:00', FREE_END = '2026-10-07T24:00';
-var TOLL_NOTE = '10/1 00:00 – 10/7 24:00 免费';
 
 function P(a,b){return [a,b];}
 
@@ -958,7 +960,7 @@ function renderDays(){
     var open = st.open[d.id]!==undefined ? !!st.open[d.id] : (d.id==='d1');
     var nav=navLinks(d);
     var hn=hotelQuery(d);
-    var tollTxt = d.drive.tollFree ? '<b style="color:var(--green)">免费</b> <span style="font-size:11px;color:var(--ink3)">（'+TOLL_NOTE+'）</span>' : '¥'+d.drive.toll;
+    var tollTxt = d.drive.tollFree ? '<b style="color:var(--green)">免费</b>' : '¥'+d.drive.toll;
     h+='<div class="card daywrap'+(open?' open':'')+'" id="'+d.id+'">';
     // head
     h+='<div class="dayhead" data-toggle="'+d.id+'">'+
@@ -1029,6 +1031,7 @@ function renderDays(){
     var hn=ho.name||d.stay.hotel||'';
     h+='<div class="blk"><div class="blkt b">⑥ 住宿</div><div class="staybox">'+
        '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'"><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 前往</button></div>'+
+       (d.stay.cancel?'<div class="cancelbox"><span class="cxk">⏰ 免费取消政策</span><span class="cxv">'+d.stay.cancel+'</span></div>':'')+
        '</div></div>';
 
     // ⑦ 花费
