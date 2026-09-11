@@ -898,7 +898,8 @@ function openBD(link){
   window.location.href=link.bd;
   setTimeout(function(){ if(Date.now()-t<2200 && !document.hidden){ window.open(bdw,'_blank'); } },1400);
 }
-/* 酒店导航：取最具体的地址文本（酒店名优先，否则地点/城市），用百度地图唤起 App 并展示前往路线 */
+/* 酒店导航：与「当日路线地图」的百度导航同构（baidumap://map/direction?origin=…&destination=…&mode=driving&coord_type=…&src=trip），
+   区别仅在于 origin 固定为当前位置：App 端用官方约定的「我的位置」，网页端兜底时用浏览器定位的真实坐标（wgs84） */
 function hotelQuery(d){
   var ho=st.hotel[d.id]||{};
   var hn=ho.name||d.stay.hotel||'';
@@ -910,14 +911,31 @@ function hotelNavLink(d){
   if(!addr) return null;
   var q=encodeURIComponent(addr);
   var region=encodeURIComponent(d.city||'中国');
-  /* bd：唤起百度地图 App；bdw：网页版兜底（桌面端/未装 App）。复用 openBD 的「先 App 后网页」策略 */
-  var bd='baidumap://map/direction?destination='+q+'&mode=driving&coord_type=gcj02&src=trip';
-  var bdw='https://api.map.baidu.com/direction?destination='+q+'&mode=driving&region='+region+'&output=html&coord_type=gcj02&src=trip';
-  return {bd:bd,bdw:bdw};
+  /* bd：唤起百度地图 App，origin=我的位置 → 自动从当前位置规划到酒店的驾车路线 */
+  var bd='baidumap://map/direction?origin='+encodeURIComponent('我的位置')+'&destination='+q+'&mode=driving&coord_type=gcj02&src=trip';
+  return {bd:bd,q:q,region:region};
 }
 function goHotelNav(d){
   var link=hotelNavLink(d);
-  if(link) openBD(link);
+  if(!link) return;
+  var webUrl=function(originCoord){
+    /* 网页版与路线图同参数结构；有浏览器定位坐标时用 wgs84 直填起点，否则退回名称「我的位置」 */
+    var o=originCoord
+      ? 'origin='+originCoord+'&coord_type=wgs84'
+      : 'origin='+encodeURIComponent('我的位置')+'&coord_type=gcj02';
+    return 'https://api.map.baidu.com/direction?'+o+'&destination='+link.q+'&mode=driving&region='+link.region+'&output=html&src=trip';
+  };
+  var openWeb=function(u){ if(!document.hidden) window.open(u,'_blank'); };
+  var t=Date.now();
+  window.location.href=link.bd;
+  setTimeout(function(){
+    if(document.hidden) return; /* App 已唤起，无需网页兜底 */
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(function(p){
+        openWeb(webUrl(p.coords.latitude.toFixed(6)+','+p.coords.longitude.toFixed(6)));
+      },function(){ openWeb(webUrl(null)); },{timeout:1800,maximumAge:60000});
+    } else openWeb(webUrl(null));
+  },1400);
 }
 
 /* ==================== 渲染 ==================== */
