@@ -360,15 +360,9 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 
 <!-- 全程路线 -->
 <h2 class="sec-title"><span class="n">2</span>行程总览地图</h2>
-<div class="sub">按不绕路的实际道路走向绘制 · 🏠 = 当晚住宿地</div>
-<div class="card flat" style="padding:10px">
-  <svg id="bigmap" class="mapsvg" viewBox="0 0 780 700" role="img" aria-label="全程路线示意图"></svg>
-  <div class="legend">
-    <span><i style="background:var(--gold)"></i>途经城市</span>
-    <span><i style="background:var(--red)"></i>住宿地</span>
-    <span><i style="background:var(--teal)"></i>起点/终点 景德镇</span>
-  </div>
-  <div class="notice" style="margin-top:8px">路线为示意走向（景德镇→安庆→合肥→寿县→阜阳→周口→开封→许昌→驻马店→汝南→信阳→社旗→南阳→邓州→襄阳→荆门→荆州→岳阳→九江→景德镇），实际以导航规划为准。</div>
+<div class="sub">皖豫鄂赣环线自驾 · 全程约 2526 km · 10 天 9 晚</div>
+<div class="card flat" style="padding:0;overflow:hidden">
+  <img class="mapimg" src="maps/overview.png" alt="皖豫鄂赣环线自驾路线总览" loading="lazy">
 </div>
 
 <!-- ④ 此刻关注 -->
@@ -825,38 +819,8 @@ function doodleBg(W,H,baseY,gh,gop,clouds){
   });
   return g;
 }
-function drawBigMap(){
-  var g='', raw=BIG.map(function(p){return proj(p.c);});
-  g+=doodleBg(780,700,672,26,.6,[[68,36,1],[694,48,.85],[400,26,.7]]);
-  var P=samplePath(raw,8);
-  var dd=poly(P)+' Z';
-  g+='<path d="'+dd+'" fill="none" stroke="var(--ink3)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)" opacity=".35"/>';
-  g+='<path d="'+dd+'" fill="none" stroke="var(--red)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough2)"/>';
-  // 方向箭头：沿采样折线等分放置，方向与折线切线一致（经同一 rough 位移，贴合不偏移）
-  var step=Math.max(5,Math.round(P.length/13));
-  for(var j=step;j<P.length-1;j+=step){
-    var a=P[j-1],b=P[j+1];
-    var ang=Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI;
-    g+='<path d="M-6,-5 L6,0 L-6,5 Z" fill="var(--red)" filter="url(#rough2)" transform="translate('+P[j][0].toFixed(1)+','+P[j][1].toFixed(1)+') rotate('+ang.toFixed(1)+')"/>';
-  }
-  BIG.forEach(function(p,i){
-    var xy=proj(p.c), x=xy[0],y=xy[1];
-    var col = p.kind==='home'?'var(--teal)':(p.kind==='stay'?'var(--red)':'var(--gold)');
-    var r = p.kind==='way'?5:8;
-    g+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r+'" fill="'+col+'" stroke="var(--line)" stroke-width="2"/>';
-    if(p.kind==='stay') g+='<text x="'+x.toFixed(1)+'" y="'+(y+4).toFixed(1)+'" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">夜</text>';
-    if(p.kind==='home') g+='<text x="'+x.toFixed(1)+'" y="'+(y+3.6).toFixed(1)+'" text-anchor="middle" font-size="9" fill="#fff" font-weight="bold">起</text>';
-    var tx=x, ty=y, an='middle';
-    if(p.lp==='l'){tx=x-r-7;an='end';ty=y+4;}
-    else if(p.lp==='r'){tx=x+r+7;an='start';ty=y+4;}
-    else if(p.lp==='t'){ty=y-r-7;an='middle';}
-    else {ty=y+r+14;an='middle';}
-    var fs = p.kind==='way'?11.5:13.5, fw=p.kind==='way'?'400':'800';
-    g+='<text x="'+tx.toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="'+an+'" font-size="'+fs+'" font-weight="'+fw+'" fill="var(--ink)" stroke="var(--paper)" stroke-width="3.4" paint-order="stroke" font-family="-apple-system,PingFang SC,Microsoft YaHei,sans-serif">'+p.n+'</text>';
-    if(p.kind==='stay') g+='<text x="'+tx.toFixed(1)+'" y="'+(ty+13).toFixed(1)+'" text-anchor="'+an+'" font-size="9.5" fill="var(--ink2)" font-family="-apple-system,sans-serif">🏠宿</text>';
-  });
-  document.getElementById('bigmap').innerHTML=g;
-}
+/* 总览地图已替换为静态图片 maps/overview.png，此函数保留为空壳避免引用报错 */
+function drawBigMap(){ return; }
 /* 每日打卡地图（map-creator 生成 · 只保留地图部分；多城日按城市分张） */
 var DAYMAPS = {
   d1:[['d1.png','寿县古城 · 南门/护城河']],
@@ -1285,7 +1249,6 @@ function decoTape(){
 }
 
 /* ==================== 启动 ==================== */
-drawBigMap();
 renderTips();
 renderDays();
 decoTape();
