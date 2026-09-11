@@ -1034,7 +1034,7 @@ function renderDays(){
     var hn=ho.name||d.stay.hotel||'';
     var hp=(ho.price!=null)?ho.price:(d.stay.price!=null?d.stay.price:null);
     h+='<div class="blk"><div class="blkt b">⑥ 住宿</div><div class="staybox">'+
-       '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'"><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 导航前往</button></div>'+
+       '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'"><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 前往</button></div>'+
        '<div class="staynights">'+d.stay.nights+(hp!=null?' · 房价 ¥'+money(hp):'')+'</div>'+
        (d.stay.cancel?'<div class="cancelbox"><span class="cxk">⏰ 免费取消政策</span><span class="cxv">'+d.stay.cancel+'</span></div>':'')+
        '</div></div>';
