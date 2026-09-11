@@ -32,7 +32,8 @@
   --marker:#f6c13d; --doodle:#a3957a;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;overflow-x:hidden}
+/* 注意：这里必须用 clip 不能用 hidden —— overflow-x:hidden 会让 html/body 变成滚动容器，导致 position:sticky 失效 */
+html,body{margin:0;padding:0;overflow-x:clip}
 body{
   background:var(--paper);
   color:var(--ink);
@@ -325,6 +326,9 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 /* 「在路上」板块：按钮栏在板块范围内冻结置顶（Excel 式区域冻结），滚出板块自动解除 */
 .daysec{position:relative}
 .barsticky{position:sticky;position:-webkit-sticky;top:0;z-index:60;margin:12px 0 0;padding:8px 0 10px;background:var(--paper);border-bottom:2px solid var(--line);box-shadow:0 6px 12px -8px var(--shadow)}
+/* JS 兜底：浏览器/祖先容器破坏 sticky 时改用 fixed，并用占位块保持布局不跳 */
+.barsticky.jsfix{position:fixed;top:0;left:0;right:0;margin:0}
+.barsticky.jsfix .expandall{max-width:760px;margin:0 auto}
 .expandall button{
   flex:1;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px;border:2.5px solid var(--line);border-radius:12px;
   background:var(--paper2);color:var(--ink);cursor:pointer;box-shadow:2px 2px 0 var(--shadow)
@@ -1317,6 +1321,46 @@ decoTape();
 refreshStats();
 tick();
 setInterval(tick,1000);
+
+/* ==================== 三按钮栏冻结（sticky 兜底） ====================
+   正常情况由 CSS position:sticky 完成「区域冻结」；
+   若浏览器或祖先容器破坏了 sticky（表现为已滚过板块顶部但按钮栏没吸住），
+   则自动切成 fixed + 占位块，保证效果一致且不跳版。                       */
+(function(){
+  var bar=document.querySelector('.barsticky');
+  var sec=document.querySelector('.daysec');
+  if(!bar||!sec) return;
+  var sp=document.createElement('div');
+  sp.style.display='none';
+  sec.insertBefore(sp, bar);
+  var on=false, barH=bar.offsetHeight;
+  function inRange(){
+    var sr=sec.getBoundingClientRect();
+    return sr.top < -1 && sr.bottom > barH + 8;
+  }
+  function turnOn(){
+    barH=bar.offsetHeight;
+    sp.style.height=barH+'px';
+    sp.style.display='block';
+    bar.classList.add('jsfix');
+    on=true;
+  }
+  function turnOff(){
+    sp.style.display='none';
+    bar.classList.remove('jsfix');
+    on=false;
+  }
+  function sync(){
+    if(!on){
+      if(inRange() && Math.abs(bar.getBoundingClientRect().top) > 1.5) turnOn();
+    } else {
+      if(!inRange()) turnOff();
+    }
+  }
+  window.addEventListener('scroll', sync, {passive:true});
+  window.addEventListener('resize', function(){ if(on){ turnOff(); } sync(); });
+  sync();
+})();
 </script>
 </body>
 </html>
