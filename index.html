@@ -207,6 +207,8 @@ h1.big::before{
 .daytitle{flex:1;min-width:0}
 .daytitle .a{font-size:16.5px;font-weight:800;line-height:1.3}
 .daytitle .b{font-size:11.5px;color:var(--ink2)}
+.daytitle .dh{font-size:11px;color:var(--ink2);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;cursor:default}
+.daytitle .dh .dhn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .caret{flex:none;font-size:13px;color:var(--ink2);transition:transform .22s;border:2px solid var(--line);border-radius:50%;width:24px;height:24px;display:grid;place-items:center;background:var(--paper2)}
 .daywrap.open .caret{transform:rotate(180deg)}
 .daybody{display:none;padding-top:4px}
@@ -225,6 +227,13 @@ h1.big::before{
   border:2.5px solid var(--line);border-radius:12px 16px 11px 15px/15px 11px 16px 12px;padding:8px 6px;font-size:12.5px;font-weight:700;
   box-shadow:2px 2px 0 var(--shadow)
 }
+/* 酒店导航按钮（每日列表头 + ⑥住宿块共用） */
+.hnav{
+  flex:none;display:inline-flex;align-items:center;gap:3px;white-space:nowrap;text-decoration:none;color:var(--ink);
+  background:var(--card);border:2.5px solid var(--line);border-radius:11px 14px 10px 13px/13px 10px 14px 11px;
+  padding:5px 9px;font-size:12px;font-weight:700;box-shadow:2px 2px 0 var(--shadow);cursor:pointer;font-family:inherit
+}
+.hnav:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--shadow)}
 .wx{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;font-size:12.5px;background:var(--card);border:2px dashed var(--line);border-radius:12px;padding:8px 10px}
 .wx .temp{font-size:19px;font-weight:900}
 .wx a{color:var(--blue);font-weight:700}
@@ -313,7 +322,8 @@ table.cost tr.sum td{border-top:2px solid var(--line);border-bottom:0;font-weigh
 .tips li{margin:5px 0;font-size:13px}
 .notice{font-size:11.5px;color:var(--ink2);background:var(--soft);border:2px dashed var(--line);border-radius:12px;padding:8px 10px;margin-top:10px}
 footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;line-height:1.8}
-.expandall{display:flex;gap:8px;margin:12px 0 0}
+.expandall{display:flex;gap:8px;margin:0}
+.barsticky{position:sticky;position:-webkit-sticky;top:0;z-index:60;margin:12px 0 0;padding:8px 0 10px;background:var(--paper);box-shadow:0 6px 12px -8px var(--shadow)}
 .expandall button{
   flex:1;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px;border:2.5px solid var(--line);border-radius:12px;
   background:var(--paper2);color:var(--ink);cursor:pointer;box-shadow:2px 2px 0 var(--shadow)
@@ -322,7 +332,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
   h1.big{font-size:25px}.stat .v{font-size:20px}.cd b{font-size:23px}
   .catpick{font-size:11px;padding:3px 5px}.catval{font-size:14px}
 }
-@media print{.expandall,.maptoggle,.navbtns{display:none}.daybody{display:block!important}.mapbox{display:block!important}}
+@media print{.expandall,.barsticky,.maptoggle,.navbtns,.hnav{display:none}.daybody{display:block!important}.mapbox{display:block!important}}
 </style>
 </head>
 <body>
@@ -385,10 +395,12 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 
 <!-- 逐日 -->
 <h2 class="sec-title"><span class="n">4</span>在路上</h2>
-<div class="expandall">
-  <button id="btnAll">全部展开</button>
-  <button id="btnNone">全部收起</button>
-  <button id="btnToday">只看今天</button>
+<div class="barsticky">
+  <div class="expandall">
+    <button id="btnAll">全部展开</button>
+    <button id="btnNone">全部收起</button>
+    <button id="btnToday">只看今天</button>
+  </div>
 </div>
 <div id="days"></div>
 
@@ -886,6 +898,27 @@ function openBD(link){
   window.location.href=link.bd;
   setTimeout(function(){ if(Date.now()-t<2200 && !document.hidden){ window.open(bdw,'_blank'); } },1400);
 }
+/* 酒店导航：取最具体的地址文本（酒店名优先，否则地点/城市），用百度地图唤起 App 并展示前往路线 */
+function hotelQuery(d){
+  var ho=st.hotel[d.id]||{};
+  var hn=ho.name||d.stay.hotel||'';
+  if(hn) return hn;
+  return d.stay.place||d.city||'';
+}
+function hotelNavLink(d){
+  var addr=hotelQuery(d);
+  if(!addr) return null;
+  var q=encodeURIComponent(addr);
+  var region=encodeURIComponent(d.city||'中国');
+  /* bd：唤起百度地图 App；bdw：网页版兜底（桌面端/未装 App）。复用 openBD 的「先 App 后网页」策略 */
+  var bd='baidumap://map/direction?destination='+q+'&mode=driving&coord_type=gcj02&src=trip';
+  var bdw='https://api.map.baidu.com/direction?destination='+q+'&mode=driving&region='+region+'&output=html&coord_type=gcj02&src=trip';
+  return {bd:bd,bdw:bdw};
+}
+function goHotelNav(d){
+  var link=hotelNavLink(d);
+  if(link) openBD(link);
+}
 
 /* ==================== 渲染 ==================== */
 function money(n){
@@ -911,13 +944,16 @@ function renderDays(){
   DAYS.forEach(function(d){
     var open = st.open[d.id]!==undefined ? !!st.open[d.id] : (d.id==='d1');
     var nav=navLinks(d);
+    var hn=hotelQuery(d);
     var tollTxt = d.drive.tollFree ? '<b style="color:var(--green)">免费</b> <span style="font-size:11px;color:var(--ink3)">（'+TOLL_NOTE+'）</span>' : '¥'+d.drive.toll;
     h+='<div class="card daywrap'+(open?' open':'')+'" id="'+d.id+'">';
     // head
     h+='<div class="dayhead" data-toggle="'+d.id+'">'+
        '<div class="daynum">DAY<small>'+d.n+'</small></div>'+
        '<div class="daytitle"><div class="a">'+d.title+'</div><div class="b">'+d.date.slice(5).replace('-','/')+' '+d.wd+' · '+
-       (d.drive.km?'<span class="mk sm">'+d.drive.km+'km</span> / '+d.drive.h+'h / 高速'+tollTxt:'纯玩日 · 无长途')+'</div></div>'+
+       (d.drive.km?'<span class="mk sm">'+d.drive.km+'km</span> / '+d.drive.h+'h / 高速'+tollTxt:'纯玩日 · 无长途')+'</div>'+
+       (hn?'<div class="dh"><span class="dhn">🏠 '+hn+'</span><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 导航</button></div>':'')+
+       '</div>'+
        '<div class="caret">▾</div></div>';
     h+='<div class="daybody">';
     h+='<div class="notice" style="margin-top:8px">'+d.note+'</div>';
@@ -980,7 +1016,7 @@ function renderDays(){
     var hn=ho.name||d.stay.hotel||'';
     var hp=(ho.price!=null)?ho.price:(d.stay.price!=null?d.stay.price:null);
     h+='<div class="blk"><div class="blkt b">⑥ 住宿</div><div class="staybox">'+
-       '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'"></div>'+
+       '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'"><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 导航前往</button></div>'+
        '<div class="staynights">'+d.stay.nights+(hp!=null?' · 房价 ¥'+money(hp):'')+'</div>'+
        (d.stay.cancel?'<div class="cancelbox"><span class="cxk">⏰ 免费取消政策</span><span class="cxv">'+d.stay.cancel+'</span></div>':'')+
        '</div></div>';
@@ -1126,6 +1162,12 @@ function refreshStats(){
 /* ==================== 事件绑定 ==================== */
 document.addEventListener('click',function(e){
   var el;
+  /* 酒店导航按钮位于「每日列表头」内，必须先于 data-toggle 判定，否则会误触发展开/收起 */
+  if(el=e.target.closest('[data-hotelnav]')){
+    e.preventDefault();
+    goHotelNav(DAYS.filter(function(d){return d.id===el.getAttribute('data-hotelnav');})[0]);
+    return;
+  }
   if(el=e.target.closest('[data-toggle]')){
     var id=el.getAttribute('data-toggle');
     var w=document.getElementById(id);
