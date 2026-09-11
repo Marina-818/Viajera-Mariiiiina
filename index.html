@@ -736,7 +736,7 @@ var TIPS = [
 
 /* 倒计时事件 */
 var EVENTS = [
- {t:'2026-09-15T09:00',tag:'抢票',n:'清园宋宴开售（提前预订）',m:'9/29 入园场次 · 9/15 起可购 · 不升级就不用管'},
+ {t:'2026-09-15T09:00',tag:'抢票',n:'清园宋宴开售（提前预订）',m:'9/29 入园场次 · 9/15 起可购 · 不升级就不用管',nt:1},
  {t:'2026-09-23T09:00',tag:'预约',n:'开封市博物馆 开放预约 9/29 场次',m:'提前7天（9/23 起可约），公众号抢，最难的一步',dep:'d4c'},
  {t:'2026-09-26T10:00',tag:'出发',n:'Day1 景德镇出发 → 寿县（450km）',m:''},
  {t:'2026-09-27T09:00',tag:'行程',n:'Day2 安徽楚文化博物馆 开馆',m:'免预约，带身份证'},
@@ -1285,7 +1285,7 @@ function tick(){
   var D=Math.floor(s/86400), H=Math.floor(s%86400/3600), M=Math.floor(s%3600/60), S=s%60;
   document.getElementById('nowTag').textContent=cur.tag;
   document.getElementById('nowTitle').textContent=cur.n;
-  document.getElementById('nowNote').textContent=(cur.m?cur.m+' · ':'')+cur.t.replace('T',' ');
+  document.getElementById('nowNote').textContent=cur.m?(cur.m+(cur.nt?'':' · '+cur.t.replace('T',' '))):cur.t.replace('T',' ');
   document.getElementById('cdD').textContent=D;
   document.getElementById('cdH').textContent=pad(H);
   document.getElementById('cdM').textContent=pad(M);
