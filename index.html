@@ -1151,7 +1151,7 @@ function refreshStats(){
   document.getElementById('tdBar').style.width=(all?done/all*100:0)+'%';
   document.getElementById('sumAll').textContent=money(totalAll());
   var daysN=DAYS.length||1;
-  document.getElementById('sumAvg').textContent='日均 ¥'+money(totalAll()/daysN)+'（共 '+daysN+' 天）';
+  document.getElementById('sumAvg').textContent='日均 ¥'+money(totalAll()/daysN);
   refreshCatSum();
 }
 
