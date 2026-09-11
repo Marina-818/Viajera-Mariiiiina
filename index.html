@@ -6,6 +6,16 @@
 <meta name="theme-color" content="#f7f9f4">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>出发，就现在</title>
+<!-- 微信分享卡片 / Open Graph（图必须与本页同域名，微信爬虫才稳定抓取） -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="出发，就现在 | 皖豫鄂湘10天自驾路书">
+<meta property="og:description" content="安徽→河南→湖北→湖南，10天自驾详细行程、酒店、门票与预算清单。">
+<meta property="og:url" content="https://marina-818.github.io/Viajera-Mariiiiina/">
+<meta property="og:site_name" content="出发，就现在 · 皖豫鄂湘自驾路书">
+<meta property="og:image" content="https://marina-818.github.io/Viajera-Mariiiiina/cover.jpg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 /* 标题手写字体：写意体 YShi-Written SC —— SIL Open Font License 1.1，开源免费商用
    来源：https://github.com/Steve-Yuu/YShi-Written（基于 Zen 红道手写体改造，简体字形）
@@ -142,11 +152,22 @@ h1.big::before{
 .stat .v{font-size:23px;font-weight:900;line-height:1.25;margin-top:1px}
 .stat .u{font-size:12px;font-weight:600;color:var(--ink2)}
 .stat .m{font-size:11px;color:var(--ink3)}
+/* 分类别合计（花费清单合计卡内） */
+.catrow{display:flex;align-items:center;gap:7px;margin-top:7px;flex-wrap:wrap}
+.catpick{
+  font-size:11.5px;font-weight:700;padding:3px 7px;cursor:pointer;max-width:100%;
+  border:1.5px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);
+}
+.catval{font-size:15px;font-weight:900;color:var(--red);font-variant-numeric:tabular-nums;white-space:nowrap}
 .bar{height:9px;background:var(--soft);border:1.5px solid var(--line);border-radius:6px;overflow:hidden;margin-top:6px}
 .bar>i{display:block;height:100%;background:var(--green);width:0;transition:width .35s}
 
 /* ---------- map ---------- */
-.mapsvg{width:100%;height:auto;display:block}
+.mapsvg{width:100%;height:auto;display:block;border-radius:10px}
+.mapimg{width:100%;height:auto;display:block;border-radius:10px;border:1.5px solid var(--line)}
+.maplbl{font-size:12px;font-weight:800;color:var(--ink2);margin:12px 0 5px;display:flex;align-items:center;gap:6px}
+.maplbl:first-child{margin-top:2px}
+.maplbl::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none}
 .legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11.5px;color:var(--ink2);margin-top:6px;justify-content:center}
 .legend i{display:inline-block;width:11px;height:11px;border:1.5px solid var(--line);border-radius:50%;margin-right:4px;vertical-align:-1px}
 
@@ -299,6 +320,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 }
 @media(max-width:400px){
   h1.big{font-size:25px}.stat .v{font-size:20px}.cd b{font-size:23px}
+  .catpick{font-size:11px;padding:3px 5px}.catval{font-size:14px}
 }
 @media print{.expandall,.maptoggle,.navbtns{display:none}.daybody{display:block!important}.mapbox{display:block!important}}
 </style>
@@ -332,7 +354,9 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
     <div class="stat"><div class="k">总里程</div><div class="v"><span class="mk">2512</span><span class="u"> km</span></div><div class="m">日均 251 km · 9个移动日</div></div>
     <div class="stat"><div class="k">高速通行费（预估）</div><div class="v">¥<span class="mk mk2">468</span></div><div class="m" id="tollNote">10/1起免费，仅前3段收费</div></div>
     <div class="stat"><div class="k">待办完成进度</div><div class="v"><span class="mk mk3" id="tdDone">0</span>/<span id="tdAll">0</span></div><div class="bar"><i id="tdBar"></i></div></div>
-    <div class="stat"><div class="k">花费清单合计</div><div class="v">¥<span class="mk mk2" id="sumAll">0</span></div><div class="m" id="sumNote">高速费 + 已订住宿，其余可在每日花费清单自行新增</div></div>
+    <div class="stat"><div class="k">花费清单合计</div><div class="v">¥<span class="mk mk2" id="sumAll">0</span></div>
+      <div class="catrow"><select class="catpick" id="sumCat" aria-label="按类别查看合计"></select><span class="catval">¥<span id="sumCatVal">0</span></span></div>
+      <div class="m" id="sumNote">高速费 + 已订住宿，其余可在每日花费清单自行新增</div></div>
   </div>
 </div>
 
@@ -676,11 +700,6 @@ DAYS.forEach(function(d){
 
 /* 贴士 */
 var TIPS = [
- ['🎫 门票与长辈优惠（重点）',[
-  '全程 1 位 60–64 周岁长辈：河南多数国有景区 <b>60周岁以上免票</b>（《河南省旅游条例》第82条），<b>南阳府衙、山陕会馆明确 60 周岁及以上凭有效证件免票</b>；开封府、包公祠有<b>老人优惠票（32元 / 15元）</b>，清明上河园等企业投资景区 <b>60周岁以上半价 60元</b>，八公山 60–64 半价 20元，岳阳楼 60–64 半价 35元。花洲书院、襄阳临汉门登城墙、寿县宾阳门城墙均<b>免费</b>。',
-  '<b>规矩：任何窗口先问「老人票/优待票」再掏钱</b>，身份证 + 老年优待证随身。政策以景区公众号与现场公示为准，个别景区执行有出入。',
-  '所有博物馆、古城街区、夜市、公园一律免费，长辈同享。'
- ]],
  ['🛣️ 高速与驾驶',[
   '免费时段 <b>10/1 00:00 – 10/7 24:00</b>，7座及以下小客车，以<b>驶离收费站</b>时间为准；中秋假期（9/25–27）不免费。',
   'ETC 用户免费时段内走 ETC 通道不会扣费；若入口在免费前、出口在免费时段内，全程免费。',
@@ -840,6 +859,27 @@ function drawBigMap(){
   });
   document.getElementById('bigmap').innerHTML=g;
 }
+/* 每日打卡地图（map-creator 生成 · 只保留地图部分；多城日按城市分张） */
+var DAYMAPS = {
+  d1:[['d1.png','寿县古城 · 南门/护城河']],
+  d2:[['d2.png','寿县古城 · 步行打卡']],
+  d3:[['d3.png','开封 · 包公湖片区']],
+  d4:[['d4.png','开封 · 博物馆/清明上河园']],
+  d5:[['d5.png','许昌城区']],
+  d6:[['d6.png','汝南 · 南海禅寺']],
+  d7:[['d7a.png','信阳城区'],['d7b.png','社旗 · 赊店古镇']],
+  d8:[['d8a.png','南阳 · 府衙片区'],['d8b.png','邓州 · 花洲书院']],
+  d9:[['d9a.png','襄阳 · 昭明台'],['d9b.png','岳阳 · 汴河街']],
+  d10:[['d10.png','岳阳楼']]
+};
+function dayMapHTML(day){
+  var maps=DAYMAPS[day.id]||[], h='';
+  maps.forEach(function(m){
+    h+='<div class="maplbl">'+m[1]+'</div>'+
+       '<img class="mapimg" src="maps/'+m[0]+'" alt="'+day.title+' 打卡地图 · '+m[1]+'" loading="lazy">';
+  });
+  return h||'<div style="font-size:12px;color:var(--ink3)">地图生成中…</div>';
+}
 function drawDayMap(day){
   var pts=day.route.pts, P=pts.map(function(p){return proj(p.c);});
   var W=620,H=300,pl=78,pr=78,pt=54,pb=54;
@@ -926,7 +966,7 @@ function renderDays(){
     var mopen = !!st.map[d.id];
     h+='<div class="blk"><div class="blkt">② 当日路线地图 &amp; 当地天气</div>';
     h+='<button class="maptoggle" data-map="'+d.id+'">🗺️ '+(mopen?'收起':'展开')+'地图 · 一键导航</button>';
-    h+='<div class="mapbox'+(mopen?' open':'')+'" id="map-'+d.id+'">'+drawDayMap(d)+
+    h+='<div class="mapbox'+(mopen?' open':'')+'" id="map-'+d.id+'">'+dayMapHTML(d)+
        '<div class="navbtns">'+
        '<a class="navbtn" href="'+nav.amap+'" target="_blank" rel="noopener">🧭 高德导航</a>'+
        '<a class="navbtn" href="#" data-bd="'+d.id+'">🧭 百度地图</a>'+
@@ -996,7 +1036,13 @@ function costItems(d){
   var list=[];
   (d.cost||[]).forEach(function(c,i){ list.push({id:d.id+'-'+i,n:c.n,a:c.a,c:c.c,m:c.m,base:true}); });
   (st.add[d.id]||[]).forEach(function(c){ list.push({id:c.id,n:c.n,a:c.a,c:c.c||'新增',base:false}); });
-  return list.filter(function(x){return !st.del[x.id];});
+  list=list.filter(function(x){return !st.del[x.id];});
+  /* Day4：同时购清园宋宴(d4c)与清明上河园(d4b)时，门票费取高值不叠加（清园宋宴含入园） */
+  if(d.id==='d4' && isDone('d4b') && isDone('d4c')){
+    var kb=feeKey('d4',1);
+    list.forEach(function(x){ if(x.id===kb){ x.a=0; x.m=(x.m?x.m+' · ':'')+'已含于清园宋宴（取高值不叠加）'; } });
+  }
+  return list;
 }
 
 /* 景点门票：勾选后按「成人全价 + 长辈优惠价」自动计入当日花费 */
@@ -1026,6 +1072,15 @@ function toggleFee(dayId,i,on){
     var tcb=document.querySelector('[data-todo="'+f.tf+'"]');
     if(tcb){ tcb.checked=on; tcb.parentNode.classList.toggle('done',on); }
   }
+  /* 级联：勾选清园宋宴(d4c) → 同步勾选清明上河园购票(d4b)，费用取高值不叠加 */
+  if(on && f.tf==='d4c'){
+    var cbB=document.querySelector('[data-todo="d4b"]');
+    if(cbB && !isDone('d4b')){
+      st.todo['d4b']=true;
+      cbB.checked=true; cbB.parentNode.classList.add('done');
+      if(FEESYNC['d4b']) toggleFee(FEESYNC['d4b'].dayId, FEESYNC['d4b'].i, true);
+    }
+  }
   save(); renderCost(day); refreshStats();
 }
 function renderCost(d){
@@ -1044,6 +1099,41 @@ function renderCost(d){
 function totalAll(){
   var s=0; DAYS.forEach(function(d){ costItems(d).forEach(function(x){ s+=Number(x.a)||0; }); }); return s;
 }
+
+/* ==================== 按类别合计（「花费清单合计」卡内的下拉） ==================== */
+var CATICON={餐饮:'🍚',门票:'🎟️',住宿:'🏠',油费:'⛽',高速:'🛣️',停车:'🅿️',购物:'🛍️',其他:'✏️',新增:'✏️'};
+var CATORDER=['住宿','高速','门票','餐饮','油费','停车','购物','其他'];
+function catStat(){
+  var t={},n={};
+  DAYS.forEach(function(d){
+    costItems(d).forEach(function(x){
+      var k=x.c||'其他';
+      t[k]=(t[k]||0)+(Number(x.a)||0);
+      n[k]=(n[k]||0)+1;
+    });
+  });
+  return {t:t,n:n};
+}
+function refreshCatSum(){
+  var el=document.getElementById('sumCat'); if(!el) return;
+  var s=catStat();
+  /* 始终列出全部标准类别（空类别显示 0），再追加数据里出现过的其他类别 */
+  var cats=CATORDER.concat(Object.keys(s.t).filter(function(c){ return CATORDER.indexOf(c)<0; }));
+  cats.sort(function(a,b){
+    var ia=CATORDER.indexOf(a), ib=CATORDER.indexOf(b);
+    if(ia<0) ia=CATORDER.length;
+    if(ib<0) ib=CATORDER.length;
+    return (ia-ib)||String(a).localeCompare(String(b),'zh');
+  });
+  var cur=el.value||'__all__';
+  if(cur!=='__all__' && cats.indexOf(cur)<0) cur='__all__';
+  var h='<option value="__all__">📋 全部类别（'+Object.keys(s.t).length+' 类有花费）</option>';
+  cats.forEach(function(c){
+    h+='<option value="'+c+'">'+(CATICON[c]||'·')+' '+c+'（'+(s.n[c]||0)+' 笔）</option>';
+  });
+  el.innerHTML=h; el.value=cur;
+  document.getElementById('sumCatVal').textContent=money(cur==='__all__'?totalAll():(s.t[cur]||0));
+}
 function refreshStats(){
   var all=DAYS.reduce(function(a,d){return a+d.todos.length;},0);
   var done=0;
@@ -1052,6 +1142,7 @@ function refreshStats(){
   document.getElementById('tdAll').textContent=all;
   document.getElementById('tdBar').style.width=(all?done/all*100:0)+'%';
   document.getElementById('sumAll').textContent=money(totalAll());
+  refreshCatSum();
 }
 
 /* ==================== 事件绑定 ==================== */
@@ -1095,6 +1186,7 @@ document.addEventListener('click',function(e){
   }
 });
 document.addEventListener('change',function(e){
+  if(e.target.id==='sumCat'){ refreshCatSum(); return; }
   if(e.target.matches('[data-todo]')){
     var id=e.target.getAttribute('data-todo');
     st.todo[id]=e.target.checked; save();
