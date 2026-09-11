@@ -353,9 +353,8 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
     <div class="stat"><div class="k">总里程</div><div class="v"><span class="mk">2512</span><span class="u"> km</span></div><div class="m">日均 251 km · 9个移动日</div></div>
     <div class="stat"><div class="k">待办完成进度</div><div class="v"><span class="mk mk3" id="tdDone">0</span>/<span id="tdAll">0</span></div><div class="bar"><i id="tdBar"></i></div></div>
     <div class="stat"><div class="k">花费项目合计</div><div class="v">¥<span class="mk mk2" id="sumCatVal">0</span></div>
-      <div class="catrow"><select class="catpick" id="sumCat" aria-label="按类别查看小计"></select></div>
-      <div class="m" id="sumNote">下拉切换类别查看小计</div></div>
-    <div class="stat"><div class="k">花费总计</div><div class="v">¥<span class="mk mk2" id="sumAll">0</span></div><div class="m" id="sumTotalNote">高速费 + 已订住宿，其余可在每日花费清单自行新增</div></div>
+      <div class="catrow"><select class="catpick" id="sumCat" aria-label="按类别查看小计"></select></div></div>
+    <div class="stat"><div class="k">花费总计</div><div class="v">¥<span class="mk mk2" id="sumAll">0</span></div></div>
   </div>
 </div>
 
@@ -1113,6 +1112,12 @@ function catStat(){
   });
   return {t:t,n:n};
 }
+/* 最近记录的类别：按行程顺序遍历，取最后一条花费项所属类别 */
+function recentCat(){
+  var last=null;
+  DAYS.forEach(function(d){ costItems(d).forEach(function(x){ last=x.c||'其他'; }); });
+  return last;
+}
 function refreshCatSum(){
   var el=document.getElementById('sumCat'); if(!el) return;
   var s=catStat();
@@ -1124,7 +1129,9 @@ function refreshCatSum(){
     if(ib<0) ib=CATORDER.length;
     return (ia-ib)||String(a).localeCompare(String(b),'zh');
   });
-  var cur=el.value||'__all__';
+  /* 用户未手动选择过时，默认落在「最近记录的具体类别」而非「全部类别」 */
+  var cur=el.value||'';
+  if(!cur) cur=recentCat()||'__all__';
   if(cur!=='__all__' && cats.indexOf(cur)<0) cur='__all__';
   var h='<option value="__all__">📋 全部类别（'+Object.keys(s.t).length+' 类有花费）</option>';
   cats.forEach(function(c){
