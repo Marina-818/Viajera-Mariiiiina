@@ -315,16 +315,17 @@ table.cost tr.sum td{border-top:2px solid var(--line);border-bottom:0;font-weigh
 .addrow input.n{flex:1;min-width:130px;margin-left:4px}
 .addrow input.a{width:88px}
 .addrow button{
-  font-family:inherit;font-weight:800;font-size:13.5px;padding:8px 15px;border:2.5px solid var(--line);border-radius:10px;
+  margin-left:auto;font-family:inherit;font-weight:800;font-size:13.5px;padding:8px 15px;border:2.5px solid var(--line);border-radius:10px;
   background:var(--teal);color:#fff;cursor:pointer;box-shadow:2px 2px 0 var(--shadow)
 }
 
 /* 住宿 · 最迟免费取消时间 */
 .hotelname{width:100%;margin-top:0;font-family:inherit;font-size:13px;padding:8px 10px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);box-sizing:border-box}
 .hotelname:not(:placeholder-shown){font-size:15px;font-weight:800;color:var(--ink)}
-.hoteltop{display:flex;align-items:center;gap:8px;margin-top:6px}
+.hoteltop{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
 .hoteltop .ico{font-size:17px;line-height:1;flex:none}
-.hoteltop .hotelname{width:auto;flex:1;margin-top:0}
+.hoteltop .hotelname{width:auto;flex:1 1 160px;min-width:150px;margin-top:0;text-overflow:ellipsis}
+.hoteltop .hnav{margin-left:auto}
 .cancelbox{margin-top:9px;border:2px dashed var(--line);border-radius:12px;padding:9px 11px;background:var(--paper2);
   display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
 .cancelbox .cxk{font-size:11.5px;font-weight:800;padding:3px 8px;border:2px solid var(--line);border-radius:8px;background:var(--card);flex:none;white-space:nowrap}
@@ -375,6 +376,8 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 @media(max-width:400px){
   h1.big{font-size:25px}.stat .v{font-size:20px}.cd b{font-size:23px}
   .catpick{font-size:11px;padding:3px 5px}.catval{font-size:14px}
+  .hoteltop .hotelname{font-size:14px;padding:8px}.hoteltop .hnav{padding:5px 8px;font-size:11.5px}
+  .addrow{gap:10px}.addrow select.cat{width:106px}
 }
 @media print{.expandall,.barsticky,.maptoggle,.navbtns,.hnav{display:none}.daybody{display:block!important}.mapbox{display:block!important}}
 .todo .ttext{flex:1;min-width:0;overflow-wrap:anywhere;word-break:break-word}
@@ -1457,7 +1460,7 @@ function renderDays(){
     var ho=st.hotel[d.id]||{};
     var hn=ho.name||d.stay.hotel||'';
     h+='<div class="blk"><div class="blkt b">⑥ 躺平🛏️💤优选</div><div class="staybox">'+
-       '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'"><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 前往</button></div>'+
+       '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'" title="'+hn+'"><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 前往</button></div>'+
        (d.stay.price?'<div class="priceline">💰 已订价 <b>¥'+d.stay.price+'</b></div>':'')+
        (d.stay.cancel?'<div class="cancelbox"><span class="cxk">⏰ 免费取消政策</span><span class="cxv">'+d.stay.cancel+'</span></div>':'')+
        '</div></div>';
