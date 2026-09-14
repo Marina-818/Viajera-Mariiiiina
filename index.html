@@ -155,10 +155,21 @@ h1.big::before{
 .stat .m{font-size:11px;color:var(--ink3)}
 /* 分类别合计（花费项目合计模块内下拉） */
 .catrow{display:flex;align-items:center;gap:7px;margin-top:7px;flex-wrap:wrap}
-.catpick{
-  font-size:11.5px;font-weight:700;padding:3px 7px;cursor:pointer;max-width:100%;
-  border:1.5px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);
+/* 统一下拉框风格：花费类别筛选(概况) / 新增花费类别(⑦) 共用一套视觉 */
+.catpick,
+.addrow select.cat{
+  -webkit-appearance:none;appearance:none;
+  font-family:inherit;font-size:13px;font-weight:700;color:var(--ink);
+  background-color:var(--card);border:2px solid var(--line);border-radius:10px;
+  padding:9px 32px 9px 12px;box-shadow:2px 2px 0 var(--shadow);
+  cursor:pointer;line-height:1.4;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23786A4A' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;background-size:12px 8px;
 }
+.catpick{max-width:100%}
+.addrow select.cat{margin-right:4px}
+.catpick:hover,.addrow select.cat:hover{border-color:var(--teal);background-color:var(--paper)}
+.catpick:focus,.addrow select.cat:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(38,166,154,.18)}
 .bar{height:9px;background:var(--soft);border:1.5px solid var(--line);border-radius:6px;overflow:hidden;margin-top:6px}
 .bar>i{display:block;height:100%;background:var(--green);width:0;transition:width .35s}
 
@@ -386,7 +397,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 }
 @media(max-width:400px){
   h1.big{font-size:25px}.stat .v{font-size:20px}.cd b{font-size:23px}
-  .catpick{font-size:11px;padding:3px 5px}.catval{font-size:14px}
+  .catpick{font-size:11.5px;padding:7px 28px 7px 9px}.catval{font-size:14px}
   .hoteltop .hotelname{font-size:14px;padding:8px}.hoteltop .hnav{padding:5px 8px;font-size:11.5px}
   .addrow{gap:10px;--addw:106px}
 }
