@@ -357,14 +357,12 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
   .catpick{font-size:11px;padding:3px 5px}.catval{font-size:14px}
 }
 @media print{.expandall,.barsticky,.maptoggle,.navbtns,.hnav{display:none}.daybody{display:block!important}.mapbox{display:block!important}}
-.hero{margin:14px 0 4px;border-radius:16px;overflow:hidden;box-shadow:0 8px 26px -18px var(--shadow);border:1px solid var(--line)}
-.heroimg{display:block;width:100%;height:auto}
-@media(max-width:560px){.heroimg{height:170px;object-fit:cover;object-position:center}}
 .ed{outline:none;border-radius:6px;cursor:text;transition:background .15s,box-shadow .15s;-webkit-transition:background .15s,box-shadow .15s}
 .ed:hover{background:rgba(0,0,0,.045)}
 .ed:focus{background:rgba(0,0,0,.06);box-shadow:0 0 0 2px var(--line)}
 .todo .flag{flex:0 0 auto}
 .spot .sn.ed,.spot .sm.ed,.senior.ed{padding:1px 3px;margin:-1px -3px}
+.eat b.ed,.eat .ev.ed{padding:1px 3px;margin:-1px -3px}
 .priceline{font-size:12px;color:var(--ink2);margin:4px 0 2px;padding-left:2px}
 </style>
 </head>
@@ -390,136 +388,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
   </div>
 </header>
 
-<div class="hero">
-<svg class="heroimg" viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" role="img">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF8F2"/><stop offset="1" stop-color="#FFE4CC"/></linearGradient>
-  </defs>
-  <rect width="1200" height="340" fill="url(#bg)" rx="20"/>
-  <rect y="280" width="1200" height="60" fill="#E8D5C4"/>
-  <path d="M0 280 Q300 268 600 278 T1200 276 V340 H0Z" fill="#F0E0D0"/>
-  <g transform="translate(110,70)">
-    <circle r="32" fill="#FFD166"/>
-    <g stroke="#FFD166" stroke-width="4" stroke-linecap="round">
-      <line x1="0" y1="-44" x2="0" y2="-52"/><line x1="0" y1="44" x2="0" y2="52"/>
-      <line x1="-44" y1="0" x2="-52" y2="0"/><line x1="44" y1="0" x2="52" y2="0"/>
-      <line x1="-31" y1="-31" x2="-37" y2="-37"/><line x1="31" y1="31" x2="37" y2="37"/>
-      <line x1="-31" y1="31" x2="-37" y2="37"/><line x1="31" y1="-31" x2="37" y2="-37"/>
-    </g>
-  </g>
-  <g fill="#FFFFFF" opacity="0.85">
-    <g transform="translate(280,45)"><rect x="0" y="12" width="60" height="20" rx="10"/><circle cx="16" cy="12" r="14"/><circle cx="44" cy="10" r="18"/><circle cx="28" cy="6" r="12"/></g>
-    <g transform="translate(780,55)"><rect x="0" y="12" width="50" height="18" rx="9"/><circle cx="14" cy="12" r="12"/><circle cx="36" cy="10" r="15"/><circle cx="24" cy="6" r="10"/></g>
-    <g transform="translate(1020,80) scale(0.8)"><rect x="0" y="12" width="50" height="18" rx="9"/><circle cx="14" cy="12" r="12"/><circle cx="36" cy="10" r="15"/></g>
-  </g>
-  <path d="M200 160 Q450 80 750 130 T1080 100" fill="none" stroke="#B8A99A" stroke-width="3" stroke-dasharray="10,8" stroke-linecap="round"/>
-  <polygon points="1088,94 1102,100 1088,108" fill="#B8A99A"/>
-  <g fill="#E85D75" opacity="0.7">
-    <path d="M620 105 c-3-8 -14-8 -17 0 c-3 8 8 16 17 24 c9-8 20-16 17-24 c-3-8 -14-8 -17 0Z" transform="scale(0.6) translate(890,80)"/>
-    <path d="M620 105 c-3-8 -14-8 -17 0 c-3 8 8 16 17 24 c9-8 20-16 17-24 c-3-8 -14-8 -17 0Z" transform="scale(0.4) translate(1480,220)"/>
-  </g>
-  <g fill="#FFD166" opacity="0.6">
-    <path d="M350 140 l3 8 h8 l-6 5 2 8-7-5-7 5 2-8-6-5 h8Z" transform="scale(0.9)"/>
-    <path d="M900 170 l3 8 h8 l-6 5 2 8-7-5-7 5 2-8-6-5 h8Z" transform="scale(0.7) translate(200,30)"/>
-  </g>
-  <g stroke="#B8A99A" stroke-width="2" stroke-linecap="round" opacity="0.5">
-    <line x1="320" y1="175" x2="330" y2="175"/><line x1="325" y1="170" x2="325" y2="180"/>
-    <line x1="850" y1="145" x2="862" y2="145"/><line x1="856" y1="139" x2="856" y2="151"/>
-  </g>
-  <g stroke="#4A3728" stroke-width="2.5" stroke-linejoin="round">
-    <rect x="30" y="232" width="220" height="48" fill="#D4A574" rx="3"/>
-    <path d="M30 232 v-16 h18 v16 h22 v-16 h18 v16 h22 v-16 h18 v16 h22 v-16 h18 v16 h22 v-16 h18 v16 h22 v-16 h18 v16 h22 v-16 h18 v16" fill="#D4A574"/>
-    <rect x="100" y="172" width="80" height="60" fill="#C49A6C" rx="2"/>
-    <path d="M88 172 Q140 146 192 172" fill="#C0392B" stroke-width="2.5"/>
-    <path d="M96 154 Q140 134 184 154" fill="#E74C3C" stroke-width="2.5"/>
-    <path d="M128 232 v-22 a12 12 0 0 1 24 0 v22" fill="#5D4037" stroke-width="2"/>
-    <rect x="118" y="182" width="44" height="18" fill="#FDF6E9" rx="3" stroke-width="1.5"/>
-    <text x="140" y="195" font-size="11" fill="#C0392B" text-anchor="middle" font-weight="700">楚风</text>
-    <line x1="78" y1="156" x2="78" y2="172" stroke-width="2"/>
-    <ellipse cx="78" cy="184" rx="10" ry="13" fill="#E74C3C" stroke-width="2"/>
-    <path d="M74 196 Q78 202 82 196" fill="none" stroke="#E74C3C" stroke-width="1.5"/>
-    <line x1="78" y1="171" x2="68" y2="176" stroke-width="1.5"/>
-    <line x1="78" y1="171" x2="88" y2="176" stroke-width="1.5"/>
-  </g>
-  <g stroke="#4A3728" stroke-width="2.5" stroke-linejoin="round">
-    <rect x="338" y="252" width="110" height="28" fill="#E6B87D" rx="4"/>
-    <rect x="346" y="280" width="8" height="12" fill="#8B6914" stroke-width="2"/>
-    <rect x="432" y="280" width="8" height="12" fill="#8B6914" stroke-width="2"/>
-    <path d="M332 252 L 454 252 L 444 234 L 342 234 Z" fill="#E74C3C" stroke-width="2.5"/>
-    <rect x="360" y="206" width="66" height="26" fill="#C0392B" rx="5" stroke-width="2"/>
-    <text x="393" y="224" font-size="14" fill="#FFF" text-anchor="middle" font-weight="700">牛肉面</text>
-    <ellipse cx="393" cy="248" rx="30" ry="10" fill="#F5E6D3" stroke-width="2.5"/>
-    <ellipse cx="393" cy="245" rx="26" ry="8" fill="#FAF0E4"/>
-    <path d="M378 245 q6-8 12 0 q8-6 14 0 q8-6 14 0" fill="none" stroke="#F4D03F" stroke-width="3" stroke-linecap="round"/>
-    <line x1="416" y1="236" x2="434" y2="218" stroke="#8B6914" stroke-width="3" stroke-linecap="round"/>
-    <line x1="420" y1="240" x2="438" y2="222" stroke="#8B6914" stroke-width="3" stroke-linecap="round"/>
-    <g fill="none" stroke="#FFF" stroke-width="2.5" stroke-linecap="round" opacity="0.6">
-      <path d="M382 236 q-4-10 2-18 q4-8 0-16"/>
-      <path d="M395 234 q4-10 -2-18 q-4-8 0-16"/>
-      <path d="M408 236 q-4-10 2-18 q4-8 0-16"/>
-    </g>
-  </g>
-  <g stroke="#2C3E50" stroke-width="2.5" stroke-linejoin="round">
-    <path d="M560 278 L560 256 Q564 242 590 240 L690 236 Q748 232 784 244 L850 254 Q864 258 858 278 Z" fill="#5DADE2"/>
-    <path d="M608 240 Q646 208 714 206 L758 212 Q776 226 778 242 L608 242 Z" fill="#3498DB"/>
-    <path d="M622 238 Q656 216 712 215 L748 220 L748 238 Z" fill="#EBF5FB" stroke-width="2"/>
-    <line x1="698" y1="240" x2="698" y2="278" stroke-width="2"/>
-    <line x1="698" y1="236" x2="660" y2="222" stroke-width="2"/>
-    <circle cx="616" cy="278" r="22" fill="#2C3E50"/>
-    <circle cx="616" cy="278" r="10" fill="#BDC3C7"/>
-    <circle cx="794" cy="278" r="22" fill="#2C3E50"/>
-    <circle cx="794" cy="278" r="10" fill="#BDC3C7"/>
-    <circle cx="852" cy="264" r="6" fill="#F9E79F" stroke-width="2"/>
-  </g>
-  <g stroke="#2C3E50" stroke-width="2.5" stroke-linejoin="round">
-    <rect x="486" y="248" width="18" height="32" fill="#34495E" rx="4"/>
-    <rect x="508" y="248" width="18" height="32" fill="#34495E" rx="4"/>
-    <path d="M480 210 Q478 186 502 184 Q526 186 524 210 L522 250 H482Z" fill="#48C9B0"/>
-    <path d="M520 218 Q548 214 566 234" fill="none" stroke-width="8" stroke="#48C9B0" stroke-linecap="round"/>
-    <circle cx="566" cy="234" r="7" fill="#F0B89E" stroke-width="2"/>
-    <circle cx="502" cy="168" r="22" fill="#F0B89E"/>
-    <path d="M480 164 Q482 144 502 142 Q522 144 524 164 Q522 152 502 150 Q482 152 480 164Z" fill="#5D4037"/>
-    <circle cx="494" cy="166" r="3" fill="#2C3E50" stroke="none"/>
-    <circle cx="510" cy="166" r="3" fill="#2C3E50" stroke="none"/>
-    <path d="M496 176 Q502 182 508 176" fill="none" stroke="#2C3E50" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="488" cy="174" r="4" fill="#F5B7B1" opacity="0.5" stroke="none"/>
-    <circle cx="516" cy="174" r="4" fill="#F5B7B1" opacity="0.5" stroke="none"/>
-  </g>
-  <g stroke="#2C3E50" stroke-width="2.5" stroke-linejoin="round">
-    <path d="M900 218 Q896 188 922 186 Q948 188 946 218 L944 268 L902 268Z" fill="#E91E63"/>
-    <rect x="906" y="260" width="16" height="20" fill="#F0B89E" rx="4"/>
-    <rect x="926" y="260" width="16" height="20" fill="#F0B89E" rx="4"/>
-    <path d="M900 228 Q876 238 860 254" fill="none" stroke-width="7" stroke="#E91E63" stroke-linecap="round"/>
-    <circle cx="860" cy="254" r="6" fill="#F0B89E" stroke-width="2"/>
-    <circle cx="922" cy="162" r="20" fill="#F0B89E"/>
-    <path d="M902 158 Q904 132 922 130 Q942 132 944 158 Q952 190 940 210 L936 178 Q922 172 912 178 L906 210 Q894 190 902 158Z" fill="#2C3E50"/>
-    <path d="M952 156 Q966 168 958 186 Q946 178 942 166Z" fill="#2C3E50" stroke="none"/>
-    <circle cx="914" cy="160" r="3.5" fill="#2C3E50" stroke="none"/>
-    <circle cx="930" cy="160" r="3.5" fill="#2C3E50" stroke="none"/>
-    <circle cx="915.5" cy="159" r="1.2" fill="#FFF" stroke="none"/>
-    <circle cx="931.5" cy="159" r="1.2" fill="#FFF" stroke="none"/>
-    <path d="M916 170 Q922 176 928 170" fill="none" stroke="#2C3E50" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="908" cy="168" r="4" fill="#F5B7B1" opacity="0.5" stroke="none"/>
-    <circle cx="936" cy="168" r="4" fill="#F5B7B1" opacity="0.5" stroke="none"/>
-  </g>
-  <g stroke="#4A3728" stroke-width="2.5" stroke-linejoin="round">
-    <rect x="1060" y="230" width="14" height="50" fill="#8B6914" rx="3"/>
-    <circle cx="1067" cy="210" r="28" fill="#52B788"/>
-    <circle cx="1048" cy="222" r="20" fill="#58D68D"/>
-    <circle cx="1086" cy="225" r="18" fill="#48C9B0"/>
-  </g>
-  <g stroke="#4A3728" stroke-width="2.5" stroke-linejoin="round">
-    <rect x="1120" y="244" width="10" height="36" fill="#8B6914" rx="2"/>
-    <circle cx="1125" cy="228" r="20" fill="#52B788"/>
-    <circle cx="1112" cy="238" r="14" fill="#58D68D"/>
-    <circle cx="1138" cy="240" r="12" fill="#48C9B0"/>
-  </g>
-  <g transform="translate(50,296)">
-    <rect width="200" height="32" fill="#FFF" rx="16" stroke="#E8D5C4" stroke-width="2"/>
-    <text x="100" y="21" font-size="14" fill="#C0392B" text-anchor="middle" font-weight="700" font-family="'PingFang SC','Microsoft YaHei',sans-serif">楚风千里 · 陏豫鄂湘自驱</text>
-  </g>
-</svg>
-</div>
+
 
 <!-- ② 概况 -->
 <h2 class="sec-title"><span class="n">1</span>行程概况</h2>
@@ -914,7 +783,7 @@ var EVENTS = [
 
 /* ==================== 存储 ==================== */
 var LS = 'hh2026autumnV1';
-var st = {todo:{},del:{},add:{},open:{},map:{},hotel:{},edit:{todo:{},spot:{}},addTodo:{},delTodo:{},addSpot:{},delSpot:{},theme:''};
+var st = {todo:{},del:{},add:{},open:{},map:{},hotel:{},edit:{todo:{},spot:{},meal:{}},addTodo:{},delTodo:{},addSpot:{},delSpot:{},addMeal:{},delMeal:{},theme:''};
 try{var raw=localStorage.getItem(LS); if(raw){var o=JSON.parse(raw); for(var k in o) st[k]=o[k];}}catch(e){}
 /* 默认勾选：数据中 t.done===true 的待办载入即视为已完成（localStorage 手动改动优先） */
 try{ DAYS.forEach(function(d){ d.todos.forEach(function(t){ if(t.done && st.todo[t.id]===undefined) st.todo[t.id]=true; }); }); }catch(e){}
@@ -1168,10 +1037,10 @@ function renderDays(){
     h+='</div>';
 
     // 景点
-    h+='<div class="blk"><div class="blkt p"><span>④ 景点 / 开放时间 / 长辈优惠</span><span class="addbtn" data-addspot="'+d.id+'">＋ 添加景点</span></div>';
+    h+='<div class="blk"><div class="blkt p"><span>④ 景点🏞️ / 开放时间🕒 / 票价🎫</span><span class="addbtn" data-addspot="'+d.id+'">＋ 添加景点</span></div>';
     var daySpots=(d.spots||[]).map(function(s,i){ return {s:s,baseIdx:i,del:false}; });
     (st.delSpot[d.id]||[]).forEach(function(di){ daySpots.forEach(function(item){ if(item.baseIdx===di) item.del=true; }); });
-    (st.addSpot[d.id]||[]).forEach(function(s){ daySpots.push({s:s,baseIdx:-1+daySpots.length,del:false,isAdd:true}); });
+    (st.addSpot[d.id]||[]).forEach(function(s,ai){ daySpots.push({s:s,baseIdx:1000+ai,del:false,isAdd:true}); });
     var si=0;
     daySpots.forEach(function(item){
       if(item.del) return;
@@ -1200,9 +1069,20 @@ function renderDays(){
     });
     h+='</div>';
 
-    // ④ 美食
-    h+='<div class="blk"><div class="blkt g">⑤ 吃🍜吃🍢喝🍧喝🥤饮☕饮🍻食🍖食</div>';
-    d.meals.forEach(function(m){h+='<div class="eat"><b>'+m.t+'</b><span class="ev">'+m.v+'</span></div>';});
+    // ⑤ 美食
+    h+='<div class="blk"><div class="blkt g"><span>⑤ 吃🍜吃🍢喝🍧喝🥤饮☕饮🍻食🍖食</span><span class="addbtn" data-addmeal="'+d.id+'">＋ 添加美食</span></div>';
+    var dayMeals=(d.meals||[]).map(function(m,i){return {m:m,baseIdx:i,del:false};});
+    (st.delMeal[d.id]||[]).forEach(function(di){ dayMeals.forEach(function(item){ if(item.baseIdx===di) item.del=true; }); });
+    (st.addMeal[d.id]||[]).forEach(function(m,ai){ dayMeals.push({m:m,baseIdx:1000+ai,del:false,isAdd:true}); });
+    dayMeals.forEach(function(item){
+      if(item.del) return;
+      var m=item.m;
+      var mmid='meal-'+d.id+'-'+(item.isAdd?'a'+item.baseIdx:item.baseIdx);
+      var mov=(st.edit.meal&&st.edit.meal[d.id]&&st.edit.meal[d.id][mmid])||{};
+      var mt=mov.t!=null?mov.t:m.t;
+      var mdesc=mov.v!=null?mov.v:m.v;
+      h+='<div class="eat" data-mealrow="'+mmid+'"><b class="ed" data-ed="meal" data-day="'+d.id+'" data-id="'+mmid+'" data-k="t" contenteditable="true" spellcheck="false">'+mt+'</b><span class="ev ed" data-ed="meal" data-day="'+d.id+'" data-id="'+mmid+'" data-k="v" contenteditable="true" spellcheck="false">'+mdesc+'</span><span class="delbtn" data-delmeal="'+d.id+'" data-delmealidx="'+(item.isAdd?'a'+item.baseIdx:item.baseIdx)+'" title="删除此项">×</span></div>';
+    });
     h+='</div>';
 
     // ⑥ 住宿
@@ -1442,6 +1322,25 @@ document.addEventListener('click',function(e){
       st.delSpot[dsd]=st.delSpot[dsd]||[];
       st.delSpot[dsd].push(parseInt(dsidx,10));
     }
+    save(); renderDays();
+    return;
+  }
+  /* 美食：添加 */
+  if(el=e.target.closest('[data-addmeal]')){
+    var mdayId=el.getAttribute('data-addmeal');
+    var mname=(prompt('美食名称（如 午餐）：')||'').trim();
+    if(!mname) return;
+    var mdesc=(prompt('美食内容：')||'').trim();
+    st.addMeal[mdayId]=st.addMeal[mdayId]||[];
+    st.addMeal[mdayId].push({t:mname,v:mdesc});
+    save(); renderDays();
+    return;
+  }
+  /* 美食：删除 */
+  if(el=e.target.closest('[data-delmeal]')){
+    var dmd=el.getAttribute('data-delmeal'), dmdx=el.getAttribute('data-delmealidx');
+    st.delMeal[dmd]=st.delMeal[dmd]||[];
+    st.delMeal[dmd].push(parseInt(dmdx.charAt(0)==='a'?dmdx.slice(1):dmdx,10));
     save(); renderDays();
     return;
   }
