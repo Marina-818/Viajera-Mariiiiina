@@ -311,13 +311,13 @@ table.cost td.amt{text-align:right;font-variant-numeric:tabular-nums;font-weight
 table.cost td.del{width:26px;text-align:right}
 table.cost tr.sum td{border-top:2px solid var(--line);border-bottom:0;font-weight:900;padding-top:7px}
 .delbtn{border:0;background:transparent;color:var(--ink3);font-size:15px;cursor:pointer;padding:0 2px;line-height:1}
-.addrow{display:flex;gap:16px;margin-top:18px;padding-top:14px;border-top:1px dashed var(--ink3);flex-wrap:wrap;align-items:center}
+.addrow{--addw:118px;display:flex;gap:16px;margin-top:18px;padding-top:14px;border-top:1px dashed var(--ink3);flex-wrap:wrap;align-items:center}
 .addrow select,.addrow input{
   font-family:inherit;font-size:13px;padding:9px 12px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);min-width:0;line-height:1.4
 }
-.addrow select.cat{flex:none;width:118px;cursor:pointer;margin-right:4px}
+.addrow select.cat,.addrow input.a{flex:0 0 var(--addw);width:var(--addw)}
+.addrow select.cat{cursor:pointer;margin-right:4px}
 .addrow input.n{flex:1;min-width:130px;margin-left:4px}
-.addrow input.a{flex:none;width:118px}
 .addrow button{
   margin-left:auto;font-family:inherit;font-weight:800;font-size:13.5px;padding:8px 15px;border:2.5px solid var(--line);border-radius:10px;
   background:var(--teal);color:#fff;cursor:pointer;box-shadow:2px 2px 0 var(--shadow)
@@ -381,7 +381,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
   h1.big{font-size:25px}.stat .v{font-size:20px}.cd b{font-size:23px}
   .catpick{font-size:11px;padding:3px 5px}.catval{font-size:14px}
   .hoteltop .hotelname{font-size:14px;padding:8px}.hoteltop .hnav{padding:5px 8px;font-size:11.5px}
-  .addrow{gap:10px}.addrow select.cat{width:106px}
+  .addrow{gap:10px;--addw:106px}
 }
 @media print{.expandall,.barsticky,.maptoggle,.navbtns,.hnav{display:none}.daybody{display:block!important}.mapbox{display:block!important}}
 .todo .ttext{flex:1;min-width:0;overflow-wrap:anywhere;word-break:break-word}
