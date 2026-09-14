@@ -353,6 +353,15 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
   .catpick{font-size:11px;padding:3px 5px}.catval{font-size:14px}
 }
 @media print{.expandall,.barsticky,.maptoggle,.navbtns,.hnav{display:none}.daybody{display:block!important}.mapbox{display:block!important}}
+.hero{margin:14px 0 4px;border-radius:16px;overflow:hidden;box-shadow:0 8px 26px -18px var(--shadow);border:1px solid var(--line)}
+.heroimg{display:block;width:100%;height:auto}
+@media(max-width:560px){.heroimg{height:170px;object-fit:cover;object-position:center}}
+.ed{outline:none;border-radius:6px;cursor:text;transition:background .15s,box-shadow .15s;-webkit-transition:background .15s,box-shadow .15s}
+.ed:hover{background:rgba(0,0,0,.045)}
+.ed:focus{background:rgba(0,0,0,.06);box-shadow:0 0 0 2px var(--line)}
+.todo .flag{flex:0 0 auto}
+.spot .sn.ed,.spot .sm.ed,.senior.ed{padding:1px 3px;margin:-1px -3px}
+.priceline{font-size:12px;color:var(--ink2);margin:4px 0 2px;padding-left:2px}
 </style>
 </head>
 <body>
@@ -376,6 +385,106 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
     <span class="badge">📅 拼好假</span>
   </div>
 </header>
+
+<div class="hero">
+<svg class="heroimg" viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="皖豫鄂湘自驾路书插画：古建、父女与车、牛肉面">
+  <defs>
+    <filter id="hr" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdf6e9"/>
+      <stop offset="1" stop-color="#f6ead2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="340" fill="url(#sky)"/>
+  <g fill="none" stroke="#cdb892" stroke-width="2" opacity="0.5">
+    <path d="M0 74 Q 220 54 440 76 T 860 68 T 1200 78"/>
+    <path d="M0 100 Q 260 84 520 102 T 1040 94 T 1200 104"/>
+  </g>
+  <g fill="#ffffff" opacity="0.55">
+    <path d="M980 56 q 18 -16 36 0 q 16 -14 30 2 q -6 14 -34 12 q -22 2 -32 -14 Z"/>
+    <path d="M1064 90 q 14 -12 28 0 q 12 -10 24 2 q -5 11 -26 9 q -17 2 -26 -11 Z"/>
+  </g>
+  <circle cx="120" cy="62" r="26" fill="#f2c14e" opacity="0.9"/>
+  <g fill="none" stroke="#9a8a66" stroke-width="2" opacity="0.6">
+    <path d="M880 50 q 10 -8 20 0 q 8 8 -4 12"/>
+    <path d="M912 44 q 10 -8 20 0 q 8 8 -4 12"/>
+  </g>
+
+  <!-- 古建：牌楼 + 城墙 + 角楼 -->
+  <g filter="url(#hr)" stroke="#3a2f25" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M60 300 V 206 H 300 V 300 Z" fill="#d9c7a3"/>
+    <path d="M60 206 v-14 h16 v14 h16 v-14 h16 v14 h16 v-14 h16 v14 h16 v-14 h16 v14 h16 v-14 h16 v14 h16 v-14 h16 v14 h16 v-14 h16 v14 H300" fill="#d9c7a3"/>
+    <path d="M150 206 V 150 H 250 V 206 Z" fill="#cbb48c"/>
+    <path d="M132 150 Q 200 120 268 150 L 282 150 Q 276 162 260 162 L 140 162 Q 124 162 118 150 Z" fill="#9c3b28"/>
+    <path d="M158 120 Q 200 96 242 120 L 252 120 Q 248 130 236 130 L 164 130 Q 152 130 148 120 Z" fill="#b5482f"/>
+    <path d="M188 206 V 162 H 212 V 206 Z" fill="#6b4a2f"/>
+    <path d="M30 300 V 170 H 44 V 300 Z" fill="#b89a6a"/>
+    <path d="M58 300 V 170 H 72 V 300 Z" fill="#b89a6a"/>
+    <path d="M14 168 Q 51 150 88 168 L 98 168 Q 94 178 82 178 L 20 178 Q 8 178 4 168 Z" fill="#9c3b28"/>
+    <rect x="34" y="186" width="34" height="22" fill="#7a3b2a"/>
+  </g>
+  <text x="51" y="202" font-size="13" fill="#f3e6cf" text-anchor="middle" font-family="'KaiTi','STKaiti',serif">楚风</text>
+  <g filter="url(#hr)" stroke="#3a2f25" stroke-width="2">
+    <path d="M51 178 V 190"/>
+    <ellipse cx="51" cy="202" rx="11" ry="14" fill="#d23b2f"/>
+    <path d="M44 202 H 58" stroke-width="1.5"/>
+  </g>
+
+  <!-- 牛肉面摊 -->
+  <g filter="url(#hr)" stroke="#3a2f25" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M338 288 H 446 V 300 H 338 Z" fill="#b07a3c"/>
+    <path d="M346 300 V 312 M438 300 V 312" stroke-width="4"/>
+    <path d="M356 270 Q 390 300 424 270 Z" fill="#e8ddc6"/>
+    <ellipse cx="390" cy="270" rx="34" ry="11" fill="#ece3d2" stroke-width="3"/>
+    <path d="M366 270 q 8 -10 16 0 q 10 -10 20 0 q 10 -10 18 0" fill="none" stroke="#f3e2b0" stroke-width="4"/>
+    <rect x="372" y="262" width="12" height="7" rx="2" fill="#8a4b2f"/>
+    <rect x="396" y="264" width="12" height="7" rx="2" fill="#8a4b2f"/>
+    <path d="M404 256 L 430 238 M408 260 L 432 244" stroke="#b07a3c" stroke-width="3"/>
+    <path d="M380 256 q -6 -10 2 -18 q 6 -8 0 -16" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.6"/>
+    <path d="M398 256 q 6 -10 -2 -18 q -6 -8 0 -16" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.6"/>
+    <rect x="358" y="224" width="64" height="28" rx="4" fill="#b5482f"/>
+  </g>
+  <text x="390" y="244" font-size="16" fill="#fdf6e9" text-anchor="middle" font-family="'KaiTi','STKaiti',serif">牛肉面</text>
+
+  <!-- 车 -->
+  <g filter="url(#hr)" stroke="#3a2f25" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M560 286 L 560 268 Q 566 250 596 248 L 690 244 Q 752 240 792 252 L 858 264 Q 872 268 866 286 Z" fill="#3a7ca5"/>
+    <path d="M610 248 Q 654 212 726 210 L 770 216 Q 788 232 790 250 L 610 250 Z" fill="#356f95"/>
+    <path d="M626 246 Q 664 222 720 221 L 752 225 L 752 246 L 626 246 Z" fill="#d6ecf2"/>
+    <path d="M700 250 L 700 286" stroke-width="2"/>
+    <path d="M700 244 L 660 230" stroke-width="2"/>
+    <circle cx="624" cy="286" r="24" fill="#2b2b2b"/>
+    <circle cx="624" cy="286" r="9" fill="#9a9a9a"/>
+    <circle cx="800" cy="286" r="24" fill="#2b2b2b"/>
+    <circle cx="800" cy="286" r="9" fill="#9a9a9a"/>
+    <circle cx="858" cy="272" r="6" fill="#ffe08a"/>
+  </g>
+
+  <!-- 父亲 -->
+  <g filter="url(#hr)" stroke="#3a2f25" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M492 300 L 494 256 H 506 L 508 300 Z" fill="#3f3f4d"/>
+    <path d="M484 256 Q 486 216 501 212 Q 518 216 520 256 Z" fill="#5b7c6b"/>
+    <path d="M518 224 Q 548 226 560 244" fill="none" stroke-width="7" stroke="#5b7c6b"/>
+    <circle cx="502" cy="198" r="17" fill="#e8b48c"/>
+    <path d="M486 196 Q 502 180 518 196 Q 514 186 502 184 Q 490 186 486 196 Z" fill="#9a9a9a"/>
+    <circle cx="496" cy="198" r="5" fill="none" stroke-width="2"/>
+    <circle cx="509" cy="198" r="5" fill="none" stroke-width="2"/>
+    <path d="M501 198 H 504" stroke-width="2"/>
+  </g>
+
+  <!-- 女儿（成年） -->
+  <g filter="url(#hr)" stroke="#3a2f25" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M902 258 Q 906 214 921 210 Q 938 214 942 258 L 948 300 L 898 300 Z" fill="#c06a8a"/>
+    <path d="M904 228 Q 884 240 872 250" fill="none" stroke-width="7" stroke="#c06a8a"/>
+    <circle cx="921" cy="194" r="16" fill="#f0c0a0"/>
+    <path d="M905 192 Q 906 168 921 166 Q 937 168 938 192 Q 941 226 930 244 L 926 210 Q 921 205 916 210 L 912 244 Q 901 226 905 192 Z" fill="#2a2a2a"/>
+    <path d="M936 188 Q 950 196 944 214 Q 936 208 932 196 Z" fill="#2a2a2a"/>
+  </g>
+</svg>
+</div>
 
 <!-- ② 概况 -->
 <h2 class="sec-title"><span class="n">1</span>行程概况</h2>
@@ -459,7 +568,7 @@ var DAYS = [
   {id:'d1t3',t:'💰check：借记卡/信用卡/少量现金零钱'},
   {id:'d1t4',t:'🔋check：充电器/数据线/充电宝'},
   {id:'d1t5',t:'🏺check：烧水壶/保温杯'},
-  {id:'d1t6',t:'🏨check：寿县酒店已订（9/26–9/28)'}
+  {id:'d1t6',t:'🏨check：寿县酒店已订（9/26–9/28）'}
  ],
  cost:[
   {c:'高速',n:'景德镇→寿县',a:232,m:'中秋假期高速不免费'},
@@ -514,7 +623,7 @@ var DAYS = [
  todos:[
   {id:'d3t1',t:'🧳check：所有物品勿要遗漏'},
   {id:'d3b',t:'🎫check：开封府&包公祠需购票'},
-  {id:'d3t3',t:'🏨check：开封酒店已订（9/28–9/30)'}
+  {id:'d3t3',t:'🏨check：开封酒店已订（9/28–9/30）'}
  ],
  cost:[
   {c:'高速',n:'寿县→开封',a:176,m:'中秋假期后段，未进入免费时段'},
@@ -566,7 +675,7 @@ var DAYS = [
   {id:'d5t1',t:'🧳check：所有物品勿要遗漏'},
   {id:'d5t2',t:'🎫check：许昌博物馆免票免约'},
   {id:'d5t3',t:'🛍️check：胖东来今日营业至21:00'},
-  {id:'d5t4',t:'🏨check：许昌酒店已订(9/30-10/1)'}
+  {id:'d5t4',t:'🏨check：许昌酒店已订（9/30-10/1）'}
  ],
  cost:[
   {c:'高速',n:'开封→许昌（预估）',a:60,m:'未进入免费时段'},
@@ -591,7 +700,7 @@ var DAYS = [
  todos:[
   {id:'d6t1',t:'🧳check：所有物品勿要遗漏'},
   {id:'d6t2',t:'🛣️check：高速免费首日 + 国庆出城高峰，考虑9:00前出发'},
-  {id:'d6t3',t:'🏨check：信阳酒店已订(10/1-10/2)'}
+  {id:'d6t3',t:'🏨check：信阳酒店已订（10/1-10/2）'}
  ],
  cost:[
   {c:'高速',n:'免费时段（0元）',a:0,m:'10/1 00:00 起免费'},
@@ -618,7 +727,7 @@ var DAYS = [
  todos:[
   {id:'d7t1',t:'🧳check：所有物品勿要遗漏'},
   {id:'d7t2',t:'🎫check：信阳博物馆免票免约'},
-  {id:'d7t3',t:'🏨check：南阳酒店已订(10/2-10/3)'}
+  {id:'d7t3',t:'🏨check：南阳酒店已订（10/2-10/3）'}
  ],
  cost:[
   {c:'高速',n:'免费时段（0元）',a:0},
@@ -651,7 +760,7 @@ var DAYS = [
   {id:'d8t1',t:'🧳check：所有物品勿要遗漏'},
   {id:'d8t2',t:'🗺️check：博物院👉🏻府衙👉🏻汉画馆'},
   {id:'d8t3',t:'🎫check：南阳博物院&汉画馆免票免约，府衙&花洲书院需提前购票'},
-  {id:'d8t4',t:'🏨check：襄阳酒店已订(10/3-10/4)'}
+  {id:'d8t4',t:'🏨check：襄阳酒店已订（10/3-10/4）'}
  ],
  cost:[
   {c:'高速',n:'免费时段（0元）',a:0},
@@ -672,11 +781,11 @@ var DAYS = [
  meals:[{t:'早餐',v:'襄阳牛肉面 + 黄酒'},{t:'午餐',v:'鸭唇王'},{t:'晚餐',v:'细细家味私房菜、玲玲烧烤'}],
  stay:{place:'岳阳市区',nights:'10/4 1晚',hotel:'中铁大酒店（岳阳楼岳阳站店）',price:260.36,cancel:'10/4 18:00 前可免费取消'},
  todos:[
-  {id:'d9t1',t:'🍲check：唯一含双早(7:00-10:00)酒店，全程最贵，不吃白不吃'},
+  {id:'d9t1',t:'🍲check：唯一含双早（7:00-10:00）酒店，全程最贵，不吃白不吃'},
   {id:'d9t2',t:'🧳check：所有物品勿要遗漏'},
   {id:'d9t3',t:'🎫check：襄阳博物馆免票免约'},
   {id:'d9t4',t:'🛣️check：假期返程前高峰，二广高速车多，考虑12:30出发'},
-  {id:'d9t5',t:'🏨check：岳阳酒店已订(10/4-10/5)'}
+  {id:'d9t5',t:'🏨check：岳阳酒店已订（10/4-10/5）'}
  ],
  cost:[
   {c:'高速',n:'免费时段（0元）',a:0},
@@ -770,7 +879,7 @@ var EVENTS = [
 
 /* ==================== 存储 ==================== */
 var LS = 'hh2026autumnV1';
-var st = {todo:{},del:{},add:{},open:{},map:{},hotel:{},theme:''};
+var st = {todo:{},del:{},add:{},open:{},map:{},hotel:{},edit:{todo:{},spot:{}},theme:''};
 try{var raw=localStorage.getItem(LS); if(raw){var o=JSON.parse(raw); for(var k in o) st[k]=o[k];}}catch(e){}
 /* 默认勾选：数据中 t.done===true 的待办载入即视为已完成（localStorage 手动改动优先） */
 try{ DAYS.forEach(function(d){ d.todos.forEach(function(t){ if(t.done && st.todo[t.id]===undefined) st.todo[t.id]=true; }); }); }catch(e){}
@@ -1011,20 +1120,31 @@ function renderDays(){
     // ③ 预约 & 待办
     h+='<div class="blk"><div class="blkt r">③ 听我的，当个事儿办😏</div>';
     d.todos.forEach(function(t){
-      h+='<label class="todo'+(isDone(t.id)?' done':'')+'" for="cb-'+t.id+'"><input type="checkbox" id="cb-'+t.id+'" data-todo="'+t.id+'" '+(isDone(t.id)?'checked':'')+'><span>'+t.t+(t.f?'<span class="flag">'+t.f+'</span>':'')+'</span></label>';
+      var tt=(st.edit.todo&&st.edit.todo[t.id]!=null)?st.edit.todo[t.id]:t.t;
+      h+='<div class="todo'+(isDone(t.id)?' done':'')+'">'+
+         '<input type="checkbox" id="cb-'+t.id+'" data-todo="'+t.id+'" '+(isDone(t.id)?'checked':'')+'>'+
+         '<span class="ed" data-ed="todo" data-id="'+t.id+'" contenteditable="true" spellcheck="false">'+tt+'</span>'+
+         (t.f?'<span class="flag">'+t.f+'</span>':'')+
+         '</div>';
     });
     h+='</div>';
 
     // 景点
     h+='<div class="blk"><div class="blkt p">④ 景点 / 开放时间 / 长辈优惠</div>';
     d.spots.forEach(function(s,i){
-      h+='<div class="spot"><div class="sn">'+s.n+'</div><div class="sm">🕐 '+s.t+' · 🎟️ '+s.p+'</div>'+
-         '<div class="sm">⏰ '+s.open+'</div>'+
+      var ov=(st.edit.spot&&st.edit.spot[d.id]&&st.edit.spot[d.id][i])||{};
+      var sn=ov.n!=null?ov.n:s.n;
+      var stp=ov.tp!=null?ov.tp:(s.t+' · '+s.p);
+      var sop=ov.open!=null?ov.open:s.open;
+      var ssen=ov.senior!=null?ov.senior:(s.f?(s.f.s===0?'免费':'¥'+s.f.s):'');
+      h+='<div class="spot"><div class="sn ed" data-ed="spot" data-day="'+d.id+'" data-i="'+i+'" data-k="n" contenteditable="true" spellcheck="false">'+sn+'</div>'+
+         '<div class="sm ed" data-ed="spot" data-day="'+d.id+'" data-i="'+i+'" data-k="tp" contenteditable="true" spellcheck="false">🕐 '+stp+'</div>'+
+         '<div class="sm ed" data-ed="spot" data-day="'+d.id+'" data-i="'+i+'" data-k="open" contenteditable="true" spellcheck="false">⏰ '+sop+'</div>'+
          '<div>'+(s.must?'<span class="pill must">需提前订/抢</span>':'')+
          (s.book?'<span class="pill book">'+s.book+'</span>':'')+
          (s.p.indexOf('免费')===0?'<span class="pill free">免费</span>':'')+
          (s.open.indexOf('周一闭馆')>=0?'<span class="pill closed">周一闭馆</span>':'')+'</div>'+
-         (s.f?'<div class="senior">👴🏻长辈优惠：'+(s.f.s===0?'免费':'<b>¥'+s.f.s+'</b>')+'</div>':'');
+         (s.f?'<div class="senior ed" data-ed="spot" data-day="'+d.id+'" data-i="'+i+'" data-k="senior" contenteditable="true" spellcheck="false">👴🏻长辈优惠：'+ssen+'</div>':'');
       if(s.f){
         var fid='fee-'+d.id+'-'+i, tot=s.f.a+s.f.s;
         h+='<div class="feerow"><div class="feeline">🎟️ 2人门票：成人 ¥'+s.f.a+' + 长辈 ¥'+s.f.s+' ＝ <b>¥'+tot+'</b>'+
@@ -1045,6 +1165,7 @@ function renderDays(){
     var hn=ho.name||d.stay.hotel||'';
     h+='<div class="blk"><div class="blkt b">⑥ 躺平🛏️💤优选</div><div class="staybox">'+
        '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'"><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 前往</button></div>'+
+       (d.stay.price?'<div class="priceline">💰 已订价 <b>¥'+d.stay.price+'</b>'+(d.stay.nights?' · '+d.stay.nights:'')+'</div>':'')+
        (d.stay.cancel?'<div class="cancelbox"><span class="cxk">⏰ 免费取消政策</span><span class="cxv">'+d.stay.cancel+'</span></div>':'')+
        '</div></div>';
 
@@ -1241,6 +1362,21 @@ function findTodo(tid){
   }
   return null;
 }
+/* 页面内可编辑：待办 / 景点文本失焦后持久化（覆盖原数据展示，不影响勾选与联动逻辑） */
+document.addEventListener('blur',function(e){
+  var el=e.target;
+  if(!el||!el.classList||!el.classList.contains('ed')) return;
+  if(el.dataset.ed==='todo'){
+    st.edit.todo=st.edit.todo||{};
+    st.edit.todo[el.dataset.id]=el.textContent;
+  } else if(el.dataset.ed==='spot'){
+    st.edit.spot=st.edit.spot||{};
+    st.edit.spot[el.dataset.day]=st.edit.spot[el.dataset.day]||{};
+    st.edit.spot[el.dataset.day][el.dataset.i]=st.edit.spot[el.dataset.day][el.dataset.i]||{};
+    st.edit.spot[el.dataset.day][el.dataset.i][el.dataset.k]=el.textContent;
+  }
+  save();
+},true);
 document.addEventListener('change',function(e){
   if(e.target.id==='sumCat'){ refreshCatSum(); return; }
   if(e.target.matches('[data-todo]')){
