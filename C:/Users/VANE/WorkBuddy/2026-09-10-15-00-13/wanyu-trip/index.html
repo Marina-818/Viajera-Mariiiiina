@@ -265,6 +265,11 @@ h1.big::before{
 
 /* todo */
 .todo{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--ink3);font-size:13.5px;cursor:pointer}
+/* 整行可点：<label> 本身是块级 flex，整行宽度都是命中区；这里只补悬停反馈（不动几何，分隔线宽度不变） */
+.todo:not(.feecheck){border-radius:10px;transition:background .15s;-webkit-transition:background .15s}
+.todo:not(.feecheck):hover{background:rgba(120,100,70,.055)}
+.todo:not(.feecheck):active{background:rgba(120,100,70,.11)}
+.todo.done:not(.feecheck):hover{background:rgba(120,100,70,.03)}
 .todo:last-child{border-bottom:0}
 .todo input[type=checkbox]{
   appearance:none;-webkit-appearance:none;flex:none;width:19px;height:19px;margin-top:3px;
@@ -1088,12 +1093,12 @@ function renderDays(){
     // ③ 预约 & 待办
     h+='<div class="blk"><div class="blkt r"><span>③ 听我的，当个事儿办😏</span><button type="button" class="addbtn" data-additem="todo" data-day="'+d.id+'">＋ 添加待办</button></div>';
     todosOf(d).forEach(function(t){
-      h+='<div class="todo'+(isDone(t.id)?' done':'')+'" data-tidorow="'+t.id+'">'+
+      h+='<label class="todo'+(isDone(t.id)?' done':'')+'" data-tidorow="'+t.id+'" for="cb-'+t.id+'">'+
          '<input type="checkbox" id="cb-'+t.id+'" data-todo="'+t.id+'" '+(isDone(t.id)?'checked':'')+'>'+
          '<span class="ttext">'+t.t+'</span>'+
          (t.f?'<span class="flag">'+t.f+'</span>':'')+
          '<button type="button" class="delbtn" data-delitem="todo" data-day="'+d.id+'" data-ref="'+t.ref+'" title="删除此项">×</button>'+
-         '</div>';
+         '</label>';
     });
     h+='</div>';
 
