@@ -432,6 +432,8 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 .adok{background:var(--teal);color:#fff}
 .adbtns button:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--shadow)}
 .adhint{text-align:center;font-size:10.5px;color:var(--ink3);margin-top:10px;letter-spacing:.4px}
+.hero{margin:14px 0 6px;border-radius:18px;overflow:hidden;border:2px solid var(--line);background:#FDF7EC;box-shadow:0 12px 28px -22px var(--shadow)}
+.heroimg{display:block;width:100%;height:auto}
 .priceline{font-size:12px;color:var(--ink2);margin:4px 0 2px;padding-left:2px}
 </style>
 </head>
@@ -456,6 +458,318 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
     <span class="badge">📅 拼好假</span>
   </div>
 </header>
+
+<div class="hero">
+<svg class="heroimg" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="路书头图：古街牌楼、父女与车">
+  <defs>
+    <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FDF7EC"/><stop offset="1" stop-color="#F7E9D5"/>
+    </linearGradient>
+    <linearGradient id="hRoad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E7DED0"/><stop offset="1" stop-color="#DBD0BF"/>
+    </linearGradient>
+    <linearGradient id="hCar" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#F9F2E6"/><stop offset="1" stop-color="#EDDFC9"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="400" fill="url(#hSky)"/>
+
+  <!-- 远景雾光 + 远处屋檐 -->
+  <rect x="320" y="140" width="560" height="80" fill="#FCF5E8" opacity="0.92"/>
+  <g>
+    <path d="M296 202 L392 180 L476 196 L476 208 L296 208 Z" fill="#E9E1D1"/>
+    <path d="M724 196 L812 180 L904 202 L904 208 L724 208 Z" fill="#E9E1D1"/>
+    <path d="M476 208 L556 192 L648 198 L724 208 Z" fill="#E3DACA"/>
+    <path d="M296 202 L392 180 L476 196 L476 202 L392 190 Z" fill="#D0C8B6"/>
+    <path d="M724 196 L812 180 L904 202 L904 208 L812 190 Z" fill="#D0C8B6"/>
+  </g>
+
+  <!-- 地面 -->
+  <path d="M262 202 L938 202 L1200 400 L0 400 Z" fill="url(#hRoad)"/>
+  <path d="M470 202 L730 202 L1002 400 L198 400 Z" fill="#F2EBDF"/>
+  <g stroke="#D4C8B6" stroke-width="1.6" fill="none" opacity="0.8">
+    <path d="M118 248 Q600 228 1082 248"/>
+    <path d="M66 292 Q600 266 1134 292"/>
+    <path d="M14 344 Q600 310 1186 344"/>
+  </g>
+  <g stroke="#D4C8B6" stroke-width="1.3" fill="none" opacity="0.45">
+    <path d="M600 204 L96 400"/><path d="M600 204 L322 400"/><path d="M600 204 L600 400"/>
+    <path d="M600 204 L878 400"/><path d="M600 204 L1104 400"/>
+  </g>
+  <!-- ===== 左侧古建（三层递进屋顶） ===== -->
+  <g stroke="#C4B49B" stroke-width="2" stroke-linejoin="round">
+    <path d="M150 108 L300 126 L300 170 L150 154 Z" fill="#E8E0D2"/>
+  </g>
+  <g stroke-linejoin="round">
+    <path d="M150 68 L286 88 L300 102 L150 84 Z" fill="#A5A3AB"/>
+    <path d="M150 84 L300 102 L300 126 L150 110 Z" fill="#7F7D86"/>
+  </g>
+
+  <g stroke="#C4B49B" stroke-width="2" stroke-linejoin="round">
+    <path d="M-20 140 L250 170 L250 216 L-20 188 Z" fill="#E5DCCE"/>
+  </g>
+  <g stroke-linejoin="round">
+    <path d="M-20 96 L232 126 L250 144 L-20 116 Z" fill="#9A98A0"/>
+    <path d="M-20 116 L250 144 L250 170 L-20 142 Z" fill="#77757E"/>
+  </g>
+
+  <path d="M-34 174 L302 214 L302 400 L-34 400 Z" fill="#EBE3D7" stroke="#C4B49B" stroke-width="2"/>
+  <path d="M-34 174 L302 214 L302 230 L-34 190 Z" fill="#B57C46"/>
+  <path d="M-10 212 L140 226 L140 268 L-10 254 Z" fill="#C08A52"/>
+  <g stroke="#8A5A32" stroke-width="1.8" fill="none">
+    <path d="M-10 226 L140 240"/><path d="M-10 240 L140 254"/>
+    <path d="M28 218 L28 260"/><path d="M66 222 L66 264"/><path d="M104 224 L104 266"/>
+  </g>
+  <rect x="56" y="192" width="18" height="208" fill="#AC7440"/>
+  <rect x="196" y="206" width="18" height="194" fill="#AC7440"/>
+  <path d="M84 302 L176 308 L176 400 L84 400 Z" fill="#9E6A3C"/>
+  <path d="M130 305 L130 400" stroke="#7E5430" stroke-width="3"/>
+  <path d="M204 296 L292 302 L292 352 L204 348 Z" fill="#C08A52"/>
+  <g stroke="#8A5A32" stroke-width="2" fill="none">
+    <path d="M204 312 L292 318"/><path d="M204 330 L292 336"/>
+    <path d="M226 298 L226 350"/><path d="M248 300 L248 350"/><path d="M270 301 L270 351"/>
+  </g>
+  <path d="M-50 126 L296 166 L318 186 L-32 148 Z" fill="#918F97"/>
+  <path d="M-32 148 L318 186 L318 216 L-32 178 Z" fill="#6E6C75"/>
+  <path d="M-50 126 L296 166" stroke="#7C7A83" stroke-width="3"/>
+  <path d="M318 186 Q 348 180 358 162 L 344 192 Q 330 202 318 216 Z" fill="#6E6C75"/>
+  <g stroke="#5C5A62" stroke-width="1.2" opacity="0.55">
+    <path d="M-32 160 L318 198"/><path d="M-32 168 L318 206"/>
+  </g>
+  <g fill="#5C5A62">
+    <circle cx="-8" cy="181" r="3.4"/><circle cx="38" cy="186" r="3.4"/><circle cx="84" cy="191" r="3.4"/>
+    <circle cx="130" cy="196" r="3.4"/><circle cx="176" cy="201" r="3.4"/><circle cx="222" cy="206" r="3.4"/>
+    <circle cx="268" cy="211" r="3.4"/><circle cx="304" cy="215" r="3.4"/>
+  </g>
+
+  <!-- ===== 右侧古建（镜像） ===== -->
+  <g stroke="#C4B49B" stroke-width="2" stroke-linejoin="round">
+    <path d="M1050 108 L900 126 L900 170 L1050 154 Z" fill="#E8E0D2"/>
+  </g>
+  <g stroke-linejoin="round">
+    <path d="M1050 68 L914 88 L900 102 L1050 84 Z" fill="#A5A3AB"/>
+    <path d="M1050 84 L900 102 L900 126 L1050 110 Z" fill="#7F7D86"/>
+  </g>
+
+  <g stroke="#C4B49B" stroke-width="2" stroke-linejoin="round">
+    <path d="M1220 140 L950 170 L950 216 L1220 188 Z" fill="#E5DCCE"/>
+  </g>
+  <g stroke-linejoin="round">
+    <path d="M1220 96 L968 126 L950 144 L1220 116 Z" fill="#9A98A0"/>
+    <path d="M1220 116 L950 144 L950 170 L1220 142 Z" fill="#77757E"/>
+  </g>
+
+  <path d="M1234 174 L898 214 L898 400 L1234 400 Z" fill="#EBE3D7" stroke="#C4B49B" stroke-width="2"/>
+  <path d="M1234 174 L898 214 L898 230 L1234 190 Z" fill="#B57C46"/>
+  <path d="M1210 212 L1060 226 L1060 268 L1210 254 Z" fill="#C08A52"/>
+  <g stroke="#8A5A32" stroke-width="1.8" fill="none">
+    <path d="M1210 226 L1060 240"/><path d="M1210 240 L1060 254"/>
+    <path d="M1172 218 L1172 260"/><path d="M1134 222 L1134 264"/><path d="M1096 224 L1096 266"/>
+  </g>
+  <rect x="1126" y="192" width="18" height="208" fill="#AC7440"/>
+  <rect x="986" y="206" width="18" height="194" fill="#AC7440"/>
+  <path d="M1024 302 L1116 308 L1116 400 L1024 400 Z" fill="#9E6A3C"/>
+  <path d="M1070 305 L1070 400" stroke="#7E5430" stroke-width="3"/>
+  <path d="M908 296 L996 302 L996 352 L908 348 Z" fill="#C08A52"/>
+  <g stroke="#8A5A32" stroke-width="2" fill="none">
+    <path d="M908 312 L996 318"/><path d="M908 330 L996 336"/>
+    <path d="M930 298 L930 350"/><path d="M952 300 L952 350"/><path d="M974 301 L974 351"/>
+  </g>
+  <path d="M1250 126 L904 166 L882 186 L1232 148 Z" fill="#918F97"/>
+  <path d="M1232 148 L882 186 L882 216 L1232 178 Z" fill="#6E6C75"/>
+  <path d="M1250 126 L904 166" stroke="#7C7A83" stroke-width="3"/>
+  <path d="M882 186 Q 852 180 842 162 L 856 192 Q 870 202 882 216 Z" fill="#6E6C75"/>
+  <g stroke="#5C5A62" stroke-width="1.2" opacity="0.55">
+    <path d="M1232 160 L882 198"/><path d="M1232 168 L882 206"/>
+  </g>
+  <g fill="#5C5A62">
+    <circle cx="1208" cy="181" r="3.4"/><circle cx="1162" cy="186" r="3.4"/><circle cx="1116" cy="191" r="3.4"/>
+    <circle cx="1070" cy="196" r="3.4"/><circle cx="1024" cy="201" r="3.4"/><circle cx="978" cy="206" r="3.4"/>
+    <circle cx="932" cy="211" r="3.4"/><circle cx="896" cy="215" r="3.4"/>
+  </g>
+
+  <!-- ===== 中央牌楼 ===== -->
+  <g stroke="#8A5A32" stroke-width="2" stroke-linejoin="round">
+    <rect x="486" y="208" width="16" height="76" fill="#B57C46"/>
+    <rect x="534" y="208" width="16" height="76" fill="#B57C46"/>
+    <rect x="666" y="208" width="16" height="76" fill="#B57C46"/>
+    <rect x="714" y="208" width="16" height="76" fill="#B57C46"/>
+  </g>
+  <g fill="#D2C9B8" stroke="#B0A692" stroke-width="1.5">
+    <rect x="479" y="274" width="30" height="13" rx="2"/><rect x="527" y="274" width="30" height="13" rx="2"/>
+    <rect x="659" y="274" width="30" height="13" rx="2"/><rect x="707" y="274" width="30" height="13" rx="2"/>
+  </g>
+  <rect x="470" y="196" width="260" height="14" fill="#A9713F" stroke="#8A5A32" stroke-width="1.6"/>
+  <rect x="480" y="180" width="240" height="16" fill="#B57C46" stroke="#8A5A32" stroke-width="1.6"/>
+  <g stroke-linejoin="round">
+    <path d="M464 134 Q 600 122 736 134 L 772 168 Q 770 186 730 186 L 470 186 Q 430 186 428 168 Z" fill="#6E6C75"/>
+    <path d="M428 168 Q 404 156 396 122 L 418 150 Q 434 160 448 162 Z" fill="#6E6C75"/>
+    <path d="M772 168 Q 796 156 804 122 L 782 150 Q 766 160 752 162 Z" fill="#6E6C75"/>
+    <path d="M500 84 Q 600 76 700 84 L 722 108 Q 720 118 688 118 L 512 118 Q 480 118 478 108 Z" fill="#7A7880"/>
+    <path d="M528 40 Q 600 34 672 40 L 692 62 Q 690 72 660 72 L 540 72 Q 510 72 508 62 Z" fill="#918F97"/>
+  </g>
+  <path d="M464 134 Q 600 122 736 134" stroke="#5C5A62" stroke-width="2.4" fill="none"/>
+  <path d="M500 84 Q 600 76 700 84" stroke="#6A6871" stroke-width="2" fill="none"/>
+  <path d="M528 40 Q 600 34 672 40" stroke="#7C7A83" stroke-width="2" fill="none"/>
+  <g fill="#5C5A62">
+    <circle cx="470" cy="186" r="3.4"/><circle cx="513" cy="186" r="3.4"/><circle cx="556" cy="186" r="3.4"/>
+    <circle cx="600" cy="186" r="3.4"/><circle cx="644" cy="186" r="3.4"/><circle cx="687" cy="186" r="3.4"/>
+    <circle cx="730" cy="186" r="3.4"/>
+  </g>
+  <rect x="532" y="192" width="136" height="34" rx="4" fill="#C99A5E" stroke="#8A5A32" stroke-width="2.5"/>
+  <rect x="538" y="198" width="124" height="22" rx="2" fill="none" stroke="#EBD8B4" stroke-width="1.5"/>
+  <text x="600" y="216" font-size="19" fill="#4A3323" text-anchor="middle" font-weight="700"
+        font-family="'KaiTi','STKaiti','PingFang SC',serif" letter-spacing="5">皖豫鄂湘</text>
+  <!-- ===== 灯笼 ===== -->
+  <g>
+    <line x1="60" y1="188" x2="60" y2="199" stroke="#8A5A32" stroke-width="2"/>
+    <rect x="53" y="197" width="14" height="6" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <ellipse cx="60" cy="215" rx="14" ry="16" fill="#F0863C" stroke="#C9552A" stroke-width="1.5"/>
+    <ellipse cx="56" cy="212" rx="4" ry="7" fill="#FBB27A" opacity="0.75"/>
+    <rect x="54" y="228" width="12" height="5" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <line x1="60" y1="233" x2="60" y2="241" stroke="#C9552A" stroke-width="2"/>
+  </g>
+  <g>
+    <line x1="155" y1="198" x2="155" y2="209" stroke="#8A5A32" stroke-width="2"/>
+    <rect x="148" y="207" width="14" height="6" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <ellipse cx="155" cy="225" rx="14" ry="16" fill="#F0863C" stroke="#C9552A" stroke-width="1.5"/>
+    <ellipse cx="151" cy="222" rx="4" ry="7" fill="#FBB27A" opacity="0.75"/>
+    <rect x="149" y="238" width="12" height="5" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <line x1="155" y1="243" x2="155" y2="251" stroke="#C9552A" stroke-width="2"/>
+  </g>
+  <g>
+    <line x1="250" y1="208" x2="250" y2="219" stroke="#8A5A32" stroke-width="2"/>
+    <rect x="243" y="217" width="14" height="6" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <ellipse cx="250" cy="235" rx="14" ry="16" fill="#F0863C" stroke="#C9552A" stroke-width="1.5"/>
+    <ellipse cx="246" cy="232" rx="4" ry="7" fill="#FBB27A" opacity="0.75"/>
+    <rect x="244" y="248" width="12" height="5" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <line x1="250" y1="253" x2="250" y2="261" stroke="#C9552A" stroke-width="2"/>
+  </g>
+  <g>
+    <line x1="1140" y1="188" x2="1140" y2="199" stroke="#8A5A32" stroke-width="2"/>
+    <rect x="1133" y="197" width="14" height="6" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <ellipse cx="1140" cy="215" rx="14" ry="16" fill="#F0863C" stroke="#C9552A" stroke-width="1.5"/>
+    <ellipse cx="1136" cy="212" rx="4" ry="7" fill="#FBB27A" opacity="0.75"/>
+    <rect x="1134" y="228" width="12" height="5" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <line x1="1140" y1="233" x2="1140" y2="241" stroke="#C9552A" stroke-width="2"/>
+  </g>
+  <g>
+    <line x1="1045" y1="198" x2="1045" y2="209" stroke="#8A5A32" stroke-width="2"/>
+    <rect x="1038" y="207" width="14" height="6" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <ellipse cx="1045" cy="225" rx="14" ry="16" fill="#F0863C" stroke="#C9552A" stroke-width="1.5"/>
+    <ellipse cx="1041" cy="222" rx="4" ry="7" fill="#FBB27A" opacity="0.75"/>
+    <rect x="1039" y="238" width="12" height="5" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <line x1="1045" y1="243" x2="1045" y2="251" stroke="#C9552A" stroke-width="2"/>
+  </g>
+  <g>
+    <line x1="950" y1="208" x2="950" y2="219" stroke="#8A5A32" stroke-width="2"/>
+    <rect x="943" y="217" width="14" height="6" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <ellipse cx="950" cy="235" rx="14" ry="16" fill="#F0863C" stroke="#C9552A" stroke-width="1.5"/>
+    <ellipse cx="946" cy="232" rx="4" ry="7" fill="#FBB27A" opacity="0.75"/>
+    <rect x="944" y="248" width="12" height="5" rx="1.5" fill="#E8B44A" stroke="#B8862F" stroke-width="1.2"/>
+    <line x1="950" y1="253" x2="950" y2="261" stroke="#C9552A" stroke-width="2"/>
+  </g>
+
+  <!-- ===== 地面投影 ===== -->
+  <ellipse cx="386" cy="379" rx="96" ry="12" fill="#CFC3B1" opacity="0.45"/>
+  <ellipse cx="870" cy="379" rx="130" ry="13" fill="#CFC3B1" opacity="0.45"/>
+
+  <!-- ===== 父亲（成人） ===== -->
+  <g>
+    <rect x="348" y="316" width="17" height="58" rx="6" fill="#3E4A63"/>
+    <rect x="379" y="316" width="17" height="58" rx="6" fill="#3E4A63"/>
+    <rect x="342" y="368" width="27" height="10" rx="5" fill="#33343A"/>
+    <rect x="375" y="368" width="27" height="10" rx="5" fill="#33343A"/>
+    <rect x="332" y="268" width="80" height="58" rx="13" fill="#C9A46A"/>
+    <rect x="356" y="270" width="32" height="54" rx="5" fill="#FFFDF8"/>
+    <path d="M356 270 L372 298 L372 270 Z" fill="#C9A46A"/>
+    <path d="M388 270 L372 298 L372 270 Z" fill="#C9A46A"/>
+    <rect x="324" y="274" width="16" height="44" rx="8" fill="#B8914F"/>
+    <rect x="404" y="274" width="16" height="44" rx="8" fill="#B8914F"/>
+    <circle cx="332" cy="320" r="8" fill="#EBB98F"/>
+    <circle cx="412" cy="320" r="8" fill="#EBB98F"/>
+    <rect x="362" y="252" width="20" height="18" fill="#E0AC84"/>
+    <circle cx="350" cy="242" r="5" fill="#EBB98F"/>
+    <circle cx="394" cy="242" r="5" fill="#EBB98F"/>
+    <ellipse cx="372" cy="240" rx="22" ry="24" fill="#EBB98F"/>
+    <path d="M350 236 Q 350 208 372 208 Q 394 208 394 236 Z" fill="#8B5E3C"/>
+    <path d="M344 235 L 400 235 Q 402 242 395 243 L 349 243 Q 342 242 344 235 Z" fill="#7A5232"/>
+    <circle cx="363" cy="240" r="2.7" fill="#3A3230"/>
+    <circle cx="381" cy="240" r="2.7" fill="#3A3230"/>
+    <path d="M357 233 L 368 232" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/>
+    <path d="M376 232 L 387 233" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/>
+    <path d="M364 251 Q 372 257 380 251" stroke="#B5794F" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ===== 女儿（已成年） ===== -->
+  <g>
+    <path d="M452 240 Q 488 246 484 292 Q 482 324 470 340 L 456 334 Q 466 306 462 286 L 442 286 Q 438 306 448 334 L 434 340 Q 422 324 420 292 Q 416 246 452 240 Z" fill="#2E2A28"/>
+    <rect x="432" y="332" width="15" height="42" rx="5" fill="#B7BCC6"/>
+    <rect x="458" y="332" width="15" height="42" rx="5" fill="#B7BCC6"/>
+    <rect x="428" y="368" width="23" height="10" rx="5" fill="#F5F2EC"/>
+    <rect x="454" y="368" width="23" height="10" rx="5" fill="#F5F2EC"/>
+    <rect x="428" y="280" width="48" height="58" rx="10" fill="#FFFDF8"/>
+    <rect x="442" y="296" width="21" height="13" rx="2" fill="#D9453B"/>
+    <rect x="445" y="314" width="15" height="3" rx="1.5" fill="#E3B7B3"/>
+    <rect x="420" y="286" width="13" height="42" rx="6" fill="#F2C9A6"/>
+    <rect x="472" y="286" width="13" height="42" rx="6" fill="#F2C9A6"/>
+    <circle cx="426" cy="325" r="6" fill="#F2C9A6"/>
+    <circle cx="479" cy="325" r="6" fill="#F2C9A6"/>
+    <path d="M470 286 L 486 314" stroke="#C97B3A" stroke-width="3"/>
+    <rect x="478" y="310" width="24" height="24" rx="7" fill="#D98B4A" stroke="#B8722F" stroke-width="1.6"/>
+    <ellipse cx="452" cy="258" rx="20" ry="22" fill="#F2C9A6"/>
+    <path d="M432 252 Q 438 240 452 240 Q 466 240 472 252 Q 462 246 452 247 Q 442 246 432 252 Z" fill="#2E2A28"/>
+    <circle cx="443" cy="257" r="2.7" fill="#3A3230"/>
+    <circle cx="461" cy="257" r="2.7" fill="#3A3230"/>
+    <circle cx="437" cy="264" r="3.6" fill="#F0A9A0" opacity="0.5"/>
+    <circle cx="467" cy="264" r="3.6" fill="#F0A9A0" opacity="0.5"/>
+    <path d="M445 266 Q 452 272 459 266" stroke="#C4837A" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- ===== 奶油色复古小车 ===== -->
+  <g>
+    <circle cx="796" cy="358" r="21" fill="#3A3A3E"/>
+    <circle cx="796" cy="358" r="8.5" fill="#C9CDD2"/>
+    <circle cx="796" cy="358" r="3" fill="#9AA0A6"/>
+    <circle cx="946" cy="358" r="21" fill="#3A3A3E"/>
+    <circle cx="946" cy="358" r="8.5" fill="#C9CDD2"/>
+    <circle cx="946" cy="358" r="3" fill="#9AA0A6"/>
+    <path d="M810 328 L828 298 Q 838 290 858 290 L916 290 Q 936 292 950 308 L964 328 Z"
+          fill="#F5EDE1" stroke="#BCAB8F" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M820 324 L834 302 Q 842 296 856 296 L888 296 L888 324 Z" fill="#BFD9E6"/>
+    <path d="M896 296 L914 296 Q 928 298 940 312 L948 324 L896 324 Z" fill="#BFD9E6"/>
+    <path d="M748 376 Q 742 338 764 330 L954 324 Q 992 328 994 356 Q 995 374 986 376 Z"
+          fill="url(#hCar)" stroke="#BCAB8F" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M748 330 L764 330 L762 376 L750 376 Z" fill="#F0E5D2"/>
+    <rect x="746" y="338" width="14" height="22" rx="5" fill="#C9CED4" stroke="#A9AEB4" stroke-width="1.5"/>
+    <circle cx="754" cy="334" r="6.5" fill="#FFF6DC" stroke="#C3C7CC" stroke-width="2"/>
+    <circle cx="990" cy="336" r="5" fill="#E8A08F"/>
+    <path d="M766 344 L992 338" stroke="#CFD3D8" stroke-width="2.5"/>
+    <path d="M892 296 L892 324" stroke="#BCAB8F" stroke-width="3"/>
+    <path d="M892 324 L892 372" stroke="#D6C8AF" stroke-width="2"/>
+    <rect x="910" y="336" width="16" height="4" rx="2" fill="#CFD3D8"/>
+    <circle cx="806" cy="302" r="4" fill="#BCAB8F"/>
+    <path d="M744 366 Q 768 374 796 372" stroke="#C6CBD1" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <path d="M948 372 Q 974 374 996 366" stroke="#C6CBD1" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- ===== 绿植 ===== -->
+  <g>
+    <circle cx="234" cy="318" r="19" fill="#7FA86A"/>
+    <circle cx="216" cy="330" r="13" fill="#6B9558"/>
+    <circle cx="252" cy="328" r="13" fill="#8FBB78"/>
+    <path d="M214 346 L258 346 L252 382 L220 382 Z" fill="#C87A4B" stroke="#A65F35" stroke-width="2"/>
+    <rect x="208" y="338" width="56" height="11" rx="3" fill="#D98B58" stroke="#B8722F" stroke-width="1.5"/>
+  </g>
+  <g>
+    <circle cx="1064" cy="314" r="19" fill="#7FA86A"/>
+    <circle cx="1046" cy="326" r="13" fill="#6B9558"/>
+    <circle cx="1082" cy="324" r="13" fill="#8FBB78"/>
+    <path d="M1044 342 L1088 342 L1082 382 L1050 382 Z" fill="#C87A4B" stroke="#A65F35" stroke-width="2"/>
+    <rect x="1038" y="334" width="56" height="11" rx="3" fill="#D98B58" stroke="#B8722F" stroke-width="1.5"/>
+  </g>
+</svg>
+</div>
 
 
 
@@ -544,8 +858,8 @@ var DAYS = [
   {id:'d1t6',t:'🏨check：寿县酒店已订（9/26–9/28）'}
  ],
  cost:[
-  {c:'高速',n:'景德镇→寿县',a:232,m:'中秋假期高速不免费'},
-  {c:'住宿',n:'你好寿县楚文化博物馆酒店 · 双床房 2晚',a:318,m:'连住 9/26、9/27 两晚 · 919大促经济型中档（订单在线付 ¥0）'}
+  {c:'高速',n:'景德镇→寿县',a:232},
+  {c:'住宿',n:'你好寿县楚文化博物馆酒店',a:318}
  ],
 },
 {
@@ -567,7 +881,7 @@ var DAYS = [
    f:{a:40,s:20,n:'八公山',m:'长辈 60–64 周岁半价 20 元（65+ 才免票）'}}
  ],
  meals:[{t:'早餐',v:'寿县牛肉汤 + 油酥烧饼'},{t:'午餐',v:'寿县豆腐宴、瓦埠湖银鱼'},{t:'晚餐',v:'寿州咸水鹅、蒿子粑粑、大救驾'}],
- stay:{place:'续住寿县古城外围',nights:'第2晚',hotel:'你好寿县楚文化博物馆酒店（续住 · 无需换房）',cancel:'同前一晚：支付后 1 小时内可免费取消'},
+ stay:{place:'续住寿县古城外围',nights:'第2晚',hotel:'你好寿县楚文化博物馆酒店',cancel:'同前一晚：支付后 1 小时内可免费取消'},
  todos:[
   {id:'d2t1',t:'🎒check：证件/房卡/水/充电宝/外套'},
   {id:'d2t2',t:'🎫check：楚文化博物馆免票免预约'}
@@ -599,8 +913,8 @@ var DAYS = [
   {id:'d3t3',t:'🏨check：开封酒店已订（9/28–9/30）'}
  ],
  cost:[
-  {c:'高速',n:'寿县→开封',a:176,m:'中秋假期后段，未进入免费时段'},
-  {c:'住宿',n:'你好开封河南大学新曹路酒店 · 高级双床房 2晚',a:359.39,m:'在线付 · 9/28 18:00 前可免费取消 · 不含早餐'}
+  {c:'高速',n:'寿县→开封',a:176},
+  {c:'住宿',n:'你好开封河南大学新曹路酒店',a:359.39}
  ],
 },
 {
@@ -620,7 +934,7 @@ var DAYS = [
    f:{a:368,s:368,n:'清园宋宴',m:'悦席 368 元/人，全员同价，2人均按此价',tf:'d4c'}}
  ],
  meals:[{t:'早餐',v:'羊肉汤 + 油馍头（酒店不含早，就近吃）'},{t:'午餐',v:'灌汤包（黄家/第一楼）、桶子鸡'},{t:'晚餐',v:'汴京烤鸭、扣碗；河大西门夜市就在酒店附近，回店顺路'}],
- stay:{place:'续住开封老城区',nights:'第2晚（你好酒店 · 无需换房）',hotel:'你好开封河南大学新曹路酒店（续住 · 无需换房）',cancel:'同前一晚：9/28 18:00 前可免费取消'},
+ stay:{place:'续住开封老城区',nights:'第2晚（你好酒店 · 无需换房）',hotel:'你好开封河南大学新曹路酒店',cancel:'同前一晚：9/28 18:00 前可免费取消'},
  todos:[
   {id:'d4t1',t:'🎒check：证件/房卡/水/充电宝/外套'},
   {id:'d4t2',t:'🎫check：9/23即可约博物馆，再次确认门票'},
@@ -651,8 +965,8 @@ var DAYS = [
   {id:'d5t4',t:'🏨check：许昌酒店已订（9/30-10/1）'}
  ],
  cost:[
-  {c:'高速',n:'开封→许昌（预估）',a:60,m:'未进入免费时段'},
-  {c:'住宿',n:'汉庭许昌东站酒店 · 商务双床房 1晚',a:189.61,m:'在线付 · 9/30 19:00 前可免费取消'}
+  {c:'高速',n:'开封→许昌（预估）',a:60},
+  {c:'住宿',n:'汉庭许昌东站酒店',a:189.61}
  ],
 },
 {
@@ -676,8 +990,8 @@ var DAYS = [
   {id:'d6t3',t:'🏨check：信阳酒店已订（10/1-10/2）'}
  ],
  cost:[
-  {c:'高速',n:'免费时段（0元）',a:0,m:'10/1 00:00 起免费'},
-  {c:'住宿',n:'信阳颐都御园酒店（市政府店）· 舒适标准间 1晚',a:151.06,m:'先住后付（到店支付）· 10/1 18:00 前可免费取消'}
+  {c:'高速',n:'免费时段（0元）',a:0},
+  {c:'住宿',n:'信阳颐都御园酒店（市政府店）',a:151.06}
  ],
 },
 {
@@ -704,7 +1018,7 @@ var DAYS = [
  ],
  cost:[
   {c:'高速',n:'免费时段（0元）',a:0},
-  {c:'住宿',n:'汉庭南阳火车站酒店 · 高级双床房 1晚',a:244.60,m:'在线付 · 10/1 23:00 前可免费取消'}
+  {c:'住宿',n:'汉庭南阳火车站酒店',a:244.60}
  ],
 },
 {
@@ -737,7 +1051,7 @@ var DAYS = [
  ],
  cost:[
   {c:'高速',n:'免费时段（0元）',a:0},
-  {c:'住宿',n:'襄阳国投嘉悦酒店 · 豪华双床房 1晚',a:398.04,m:'在线支付 · 含2份早餐 · 10/3 18:00 前可免费取消'}
+  {c:'住宿',n:'襄阳国投嘉悦酒店',a:398.04}
  ],
 },
 {
@@ -762,7 +1076,7 @@ var DAYS = [
  ],
  cost:[
   {c:'高速',n:'免费时段（0元）',a:0},
-  {c:'住宿',n:'中铁大酒店（岳阳楼岳阳站店）· 惠享双床房 1晚',a:260.36,m:'在线支付 · 无早餐 · 10/4 18:00 前可免费取消'}
+  {c:'住宿',n:'中铁大酒店（岳阳楼岳阳站店）',a:260.36}
  ],
 },
 {
@@ -1144,7 +1458,7 @@ function renderDays(){
     var hn=ho.name||d.stay.hotel||'';
     h+='<div class="blk"><div class="blkt b">⑥ 躺平🛏️💤优选</div><div class="staybox">'+
        '<div class="hoteltop"><span class="ico">🏠</span><input class="hotelname" data-hotel="'+d.id+'" placeholder="酒店待确认" value="'+hn+'"><button type="button" class="hnav" data-hotelnav="'+d.id+'">🧭 前往</button></div>'+
-       (d.stay.price?'<div class="priceline">💰 已订价 <b>¥'+d.stay.price+'</b>'+(d.stay.nights?' · '+d.stay.nights:'')+'</div>':'')+
+       (d.stay.price?'<div class="priceline">💰 已订价 <b>¥'+d.stay.price+'</b></div>':'')+
        (d.stay.cancel?'<div class="cancelbox"><span class="cxk">⏰ 免费取消政策</span><span class="cxv">'+d.stay.cancel+'</span></div>':'')+
        '</div></div>';
 
@@ -1169,7 +1483,7 @@ function costItems(d){
   /* Day4：同时购清园宋宴(d4c)与清明上河园(d4b)时，门票费取高值不叠加（清园宋宴含入园） */
   if(d.id==='d4' && isDone('d4b') && isDone('d4c')){
     var kb=feeKey('d4',1);
-    list.forEach(function(x){ if(x.id===kb){ x.a=0; x.m=(x.m?x.m+' · ':'')+'已含于清园宋宴（取高值不叠加）'; } });
+    list.forEach(function(x){ if(x.id===kb){ x.a=0; } });
   }
   return list;
 }
@@ -1218,7 +1532,7 @@ function renderCost(d){
   if(!items.length){ h='<tr><td colspan="3" style="color:var(--ink3);font-size:11.5px;padding:6px 2px">暂无花费项，可在下方自行新增</td></tr>'; }
   items.forEach(function(x){
     sum+=Number(x.a)||0;
-    h+='<tr><td><span class="pill" style="margin:0 8px 0 0">'+x.c+'</span>'+x.n+(x.m?'<div style="font-size:10.5px;color:var(--ink3)">'+x.m+'</div>':'')+'</td>'+
+    h+='<tr><td><span class="pill" style="margin:0 8px 0 0">'+x.c+'</span>'+x.n+'</td>'+
        '<td class="amt">¥'+money(x.a)+'</td><td class="del"><button class="delbtn" data-del="'+x.id+'" data-day="'+d.id+'">×</button></td></tr>';
   });
   h+='<tr class="sum"><td>今日合计</td><td class="amt">¥'+money(sum)+'</td><td class="del"></td></tr>';
