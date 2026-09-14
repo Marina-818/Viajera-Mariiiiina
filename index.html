@@ -698,8 +698,8 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
     <circle cx="350" cy="242" r="5" fill="#EBB98F"/>
     <circle cx="394" cy="242" r="5" fill="#EBB98F"/>
     <ellipse cx="372" cy="240" rx="22" ry="24" fill="#EBB98F"/>
-    <path d="M350 236 Q 350 208 372 208 Q 394 208 394 236 Z" fill="#8B5E3C"/>
-    <path d="M344 235 L 400 235 Q 402 242 395 243 L 349 243 Q 342 242 344 235 Z" fill="#7A5232"/>
+    <path d="M351 224 Q 351 198 372 198 Q 393 198 393 224 Z" fill="#8B5E3C"/>
+    <path d="M345 222 L 399 222 Q 401 229 394 230 L 350 230 Q 343 229 345 222 Z" fill="#7A5232"/>
     <circle cx="363" cy="240" r="2.7" fill="#3A3230"/>
     <circle cx="381" cy="240" r="2.7" fill="#3A3230"/>
     <path d="M357 233 L 368 232" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/>
@@ -723,8 +723,14 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
     <circle cx="479" cy="325" r="6" fill="#F2C9A6"/>
     <path d="M470 286 L 486 314" stroke="#C97B3A" stroke-width="3"/>
     <rect x="478" y="310" width="24" height="24" rx="7" fill="#D98B4A" stroke="#B8722F" stroke-width="1.6"/>
+    <!-- 后发（肩下长发，位于面部之后） -->
+    <path d="M430 268 C 424 232 440 224 452 224 C 464 224 480 232 474 268 C 480 300 470 326 452 330 C 434 326 424 300 430 268 Z" fill="#2E2A28"/>
     <ellipse cx="452" cy="258" rx="20" ry="22" fill="#F2C9A6"/>
-    <path d="M432 252 Q 438 240 452 240 Q 466 240 472 252 Q 462 246 452 247 Q 442 246 432 252 Z" fill="#2E2A28"/>
+    <!-- 前发 / 刘海（露出眉眼） -->
+    <path d="M431 260 C 427 234 442 228 452 228 C 462 228 477 234 473 260 C 469 248 460 244 452 245 C 444 244 435 248 431 260 Z" fill="#2E2A28"/>
+    <!-- 两侧发丝 -->
+    <path d="M431 258 C 426 286 432 312 440 318 C 444 320 446 314 442 308 C 436 290 436 270 437 260 Z" fill="#2E2A28"/>
+    <path d="M473 258 C 478 286 472 312 464 318 C 460 320 458 314 462 308 C 468 290 468 270 467 260 Z" fill="#2E2A28"/>
     <circle cx="443" cy="257" r="2.7" fill="#3A3230"/>
     <circle cx="461" cy="257" r="2.7" fill="#3A3230"/>
     <circle cx="437" cy="264" r="3.6" fill="#F0A9A0" opacity="0.5"/>
@@ -1485,7 +1491,7 @@ function renderDays(){
         var fid='fee-'+d.id+'-'+i, tot=s.f.a+s.f.s;
         h+='<div class="feerow"><div class="feeline">🎟️ 2人门票：成人 ¥'+s.f.a+' + 长辈 ¥'+s.f.s+' ＝ <b>¥'+tot+'</b>'+
            (s.f.m?'<div style="font-weight:400;color:var(--ink2);font-size:11.5px;margin-top:2px">'+s.f.m+'</div>':'')+'</div>'+
-           '<label class="todo feecheck" for="'+fid+'"><input type="checkbox" id="'+fid+'" data-fee="'+d.id+'-'+i+'" '+(feeOn(d.id,i)?'checked':'')+'><span>已购票 → 自动加入⑦今日花费清单</span></label></div>';
+           '<label class="todo feecheck" for="'+fid+'"><input type="checkbox" id="'+fid+'" data-fee="'+d.id+'-'+i+'" '+(feeOn(d.id,i)?'checked':'')+'><span>已购票</span></label></div>';
       }
       h+='</div>';
     });
@@ -1741,16 +1747,20 @@ function spotsOf(day){
   });
   return out;
 }
+/* 美食栏始终按 早餐→午餐→晚餐→宵夜 顺序排列（仅影响展示，删除仍按原始索引定位） */
+var MEAL_ORDER={'早餐':0,'午餐':1,'晚餐':2,'宵夜':3};
+function mealRank(t){ return MEAL_ORDER.hasOwnProperty(t)?MEAL_ORDER[t]:99; }
 function mealsOf(day){
   var out=[];
   (day.meals||[]).forEach(function(m,i){
     if((st.delMeal[day.id]||[]).indexOf(i)>=0) return;
-    out.push({m:m,ref:'b'+i});
+    out.push({m:m,ref:'b'+i,rank:mealRank(m.t)});
   });
   (st.addMeal[day.id]||[]).forEach(function(m){
     if(!m.u) m.u=uid('m');
-    out.push({m:m,ref:'a'+m.u});
+    out.push({m:m,ref:'a'+m.u,rank:mealRank(m.t)});
   });
+  out.sort(function(a,b){ return a.rank-b.rank; });
   return out;
 }
 function delListItem(list,dayId,ref){
