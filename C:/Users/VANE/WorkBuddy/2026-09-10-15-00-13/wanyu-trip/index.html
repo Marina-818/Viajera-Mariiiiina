@@ -1173,6 +1173,8 @@ var st = {todo:{},del:{},add:{},open:{},map:{},hotel:{},addTodo:{},delTodo:{},ad
 try{var raw=localStorage.getItem(LS); if(raw){var o=JSON.parse(raw); for(var k in o) st[k]=o[k];}}catch(e){}
 /* 默认勾选：数据中 t.done===true 的待办载入即视为已完成（localStorage 手动改动优先） */
 try{ DAYS.forEach(function(d){ d.todos.forEach(function(t){ if(t.done && st.todo[t.id]===undefined) st.todo[t.id]=true; }); }); }catch(e){}
+/* 历史遗留清理：本身免费的景点若曾被勾选「已购票」，会在⑦留下 ¥0 的哑条目 */
+try{ for(var _dk in st.add){ st.add[_dk]=(st.add[_dk]||[]).filter(function(x){ return !(x&&x.fee&&!(Number(x.a)||0)); }); } }catch(e){}
 function save(){try{localStorage.setItem(LS,JSON.stringify(st));}catch(e){}}
 function isDone(id){return !!st.todo[id];}
 
@@ -1426,6 +1428,7 @@ function renderDays(){
       var sn=s.n;
       var stp=s.t+' · '+s.p;
       var sop=s.open;
+      var zeroFee=!!(s.f&&(s.f.a+s.f.s)===0); /* 景点本身免费：不再展示长辈优惠与门票核算 */
       var ssen=s.f?(s.f.s===0?'免费':'¥'+s.f.s):'';
       h+='<div class="spot" data-spotrow="'+d.id+'-'+item.ref+'">'+
          '<div class="snrow"><span class="sn">'+sn+'</span>'+
@@ -1434,10 +1437,10 @@ function renderDays(){
          '<div class="sm">⏰ '+sop+'</div>'+
          '<div>'+(s.must?'<span class="pill must">需提前订/抢</span>':'')+
          (s.book?'<span class="pill book">'+s.book+'</span>':'')+
-         (s.p.indexOf('免费')===0?'<span class="pill free">免费</span>':'')+
+         ((s.p.indexOf('免费')===0||zeroFee)?'<span class="pill free">免费</span>':'')+
          (s.open&&s.open.indexOf('周一闭馆')>=0?'<span class="pill closed">周一闭馆</span>':'')+'</div>'+
-         (s.f?'<div class="senior">👴🏻长辈优惠：'+ssen+'</div>':'');
-      if(s.f&&i>=0){
+         (s.f&&!zeroFee?'<div class="senior">👴🏻长辈优惠：'+ssen+'</div>':'');
+      if(s.f&&!zeroFee&&i>=0){
         var fid='fee-'+d.id+'-'+i, tot=s.f.a+s.f.s;
         h+='<div class="feerow"><div class="feeline">🎟️ 2人门票：成人 ¥'+s.f.a+' + 长辈 ¥'+s.f.s+' ＝ <b>¥'+tot+'</b>'+
            (s.f.m?'<div style="font-weight:400;color:var(--ink2);font-size:11.5px;margin-top:2px">'+s.f.m+'</div>':'')+'</div>'+
