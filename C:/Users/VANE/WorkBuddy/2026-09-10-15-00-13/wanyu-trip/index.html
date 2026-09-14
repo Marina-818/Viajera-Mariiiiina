@@ -1036,7 +1036,7 @@ function renderDays(){
     h+='</div>';
 
     // ④ 美食
-    h+='<div class="blk"><div class="blkt g">⑤ 🍜吃🍢吃🍧喝🧋喝🥤饮🫕饮🥘食🍖食🥞</div>';
+    h+='<div class="blk"><div class="blkt g">⑤ 吃🍜吃🍢喝🍧喝🥤饮☕饮🍻食🍖食</div>';
     d.meals.forEach(function(m){h+='<div class="eat"><b>'+m.t+'</b><span class="ev">'+m.v+'</span></div>';});
     h+='</div>';
 
@@ -1049,7 +1049,7 @@ function renderDays(){
        '</div></div>';
 
     // ⑦ 花费
-    h+='<div class="blk"><div class="blkt g">⑦ 🥺感觉荷包扁扁的❤️‍🩹</div><table class="cost" id="cost-'+d.id+'"></table>'+
+    h+='<div class="blk"><div class="blkt g">⑦ 🥺感觉荷包扁扁的💔</div><table class="cost" id="cost-'+d.id+'"></table>'+
        '<div class="addrow">'+
        '<select class="cat" data-cat="'+d.id+'"><option value="餐饮">🍚 餐饮</option><option value="门票">🎟️ 门票</option><option value="住宿">🏠 住宿</option><option value="油费">⛽ 油费</option><option value="高速">🛣️ 高速</option><option value="停车">🅿️ 停车</option><option value="购物">🛍️ 购物</option><option value="其他">✏️ 其他</option></select>'+
        '<input class="n" placeholder="备注（可不填）" data-in="'+d.id+'"><input class="a" type="number" inputmode="decimal" placeholder="金额" data-amt="'+d.id+'"><button data-add="'+d.id+'">＋ 添加</button></div>'+
@@ -1233,6 +1233,14 @@ document.addEventListener('click',function(e){
     return;
   }
 });
+/* 按 id 查找待办及其所属日期（用于「门票待办 → 当天已购票」联动） */
+function findTodo(tid){
+  for(var k=0;k<DAYS.length;k++){
+    var ds=DAYS[k].todos||[];
+    for(var j=0;j<ds.length;j++){ if(ds[j].id===tid) return {day:DAYS[k],t:ds[j]}; }
+  }
+  return null;
+}
 document.addEventListener('change',function(e){
   if(e.target.id==='sumCat'){ refreshCatSum(); return; }
   if(e.target.matches('[data-todo]')){
@@ -1246,6 +1254,20 @@ document.addEventListener('change',function(e){
         var fcb=document.querySelector('[data-fee="'+fs.dayId+'-'+fs.i+'"]');
         if(fcb) fcb.checked=e.target.checked;
         toggleFee(fs.dayId,fs.i,e.target.checked);
+      }
+    }
+    /* 通用联动：勾选「门票/购票」类待办时，同步勾选当天所有景点「已购票」 */
+    var tt=findTodo(id);
+    if(tt && tt.t && /门票|购票/.test(tt.t.t)){
+      var dayEl=document.getElementById(tt.day.id);
+      if(dayEl){
+        dayEl.querySelectorAll('[data-fee]').forEach(function(fcb){
+          if(fcb.checked!==e.target.checked){
+            fcb.checked=e.target.checked;
+            var p=fcb.getAttribute('data-fee').split('-');
+            toggleFee(p[0],parseInt(p[1],10),e.target.checked);
+          }
+        });
       }
     }
     refreshStats();
