@@ -323,32 +323,26 @@ table.cost tr.sum td{border-top:2px solid var(--line);border-bottom:0;font-weigh
 .notice{font-size:11.5px;color:var(--ink2);background:var(--soft);border:2px dashed var(--line);border-radius:12px;padding:8px 10px;margin-top:10px}
 footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;line-height:1.8}
 .expandall{display:flex;gap:8px;margin:0}
-/* 「在路上」板块：按钮栏在板块范围内冻结置顶（Excel 式区域冻结），滚出板块自动解除 */
+/* 「在路上」板块：按钮栏全宽铺满容器，冻结时与页面浑然一体（参考美团标签栏布局） */
 .daysec{position:relative}
-.barsticky{position:sticky;position:-webkit-sticky;top:0;z-index:60;margin:12px 14px 0;padding:8px 0 10px;background:transparent;transition:box-shadow .22s ease}
-/* 左右两侧渐隐：让标签栏边缘柔化融入页面，不再呈现硬切矩形块 */
-.barsticky::before{
-  content:"";position:absolute;inset:0 -14px 0 -14px;
-  background:linear-gradient(to right,rgba(253,246,233,0) 0%,rgba(253,246,233,.9) 8%,rgba(253,246,233,.9) 92%,rgba(253,246,233,0) 100%);
-  border-radius:12px;z-index:-1;pointer-events:none
+.barsticky{
+  position:sticky;position:-webkit-sticky;top:0;z-index:60;
+  margin:12px -14px 0;padding:8px 14px 10px;
+  background:var(--paper);
+  transition:box-shadow .22s ease,background .22s ease
 }
-/* 冻结时：左右渐隐实底 + 底部纸色向下柔化 + 柔光阴影 */
-.barsticky.stuck{box-shadow:0 7px 15px -13px var(--shadow)}
-.barsticky.stuck::before{
-  background:
-    linear-gradient(to bottom,rgba(253,246,233,1) 0%,rgba(253,246,233,1) calc(100% - 1px),rgba(253,246,233,0) 100%),
-    linear-gradient(to right,rgba(253,246,233,0) 0%,rgba(253,246,233,1) 6%,rgba(253,246,233,1) 94%,rgba(253,246,233,0) 100%);
-  box-shadow:0 7px 15px -13px var(--shadow);
-  height:auto;bottom:-12px
+/* 冻结时：极轻底部分隔线 + 柔光阴影，无任何边缘感 */
+.barsticky.stuck{
+  box-shadow:0 4px 16px -8px var(--shadow)
 }
-/* 冻结收边：两端渐隐的细线（替代生硬全宽实线）+ 极轻柔光，贴合手绘风 */
-.barsticky::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;opacity:0;transition:opacity .22s ease;
-  background:linear-gradient(to right,transparent 0,var(--line) 36px,var(--line) calc(100% - 36px),transparent 100%)
+.barsticky.stuck::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(to right,
+    transparent 0%, var(--line) 20%, var(--line) 80%, transparent 100%);
+  opacity:.6
 }
-.barsticky.stuck::after{opacity:1}
-/* JS 兜底：浏览器/祖先容器破坏 sticky 时改用 fixed，并用占位块保持布局不跳 */
-.barsticky.jsfix{position:fixed;top:0;left:0;right:0;margin:0}
+/* JS 兜底：浏览器/祖先容器破坏 sticky 时改用 fixed，全宽铺满 */
+.barsticky.jsfix{position:fixed;top:0;left:0;right:0;margin:0;padding:8px 14px 10px;background:var(--paper);box-shadow:0 4px 16px -8px var(--shadow)}
 .barsticky.jsfix .expandall{max-width:760px;margin:0 auto}
 .expandall button{
   flex:1;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px;border:2.5px solid var(--line);border-radius:12px;
