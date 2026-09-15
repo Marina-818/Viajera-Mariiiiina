@@ -595,7 +595,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260915113038883"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915113618444"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -1860,7 +1860,7 @@ function tick(){
     var t=parseEvtT(e.t);
     if(t-now>0){ dep=e; dep._d=t; break; }
   }
-  if(dep){ renderFocus({tag:'出发', n:dep.n, m:'准备出发，检查车况与行李', t:dep.t, _d:dep._d}); return; }
+  if(dep){ renderFocus({tag:'出发', n:dep.n, m:'准备出发，检查车况与行李', nt:1, t:dep.t, _d:dep._d}); return; }
 
   /* 全行程结束 */
   document.getElementById('nowTag').textContent='行程已结束';
