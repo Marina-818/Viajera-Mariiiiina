@@ -595,7 +595,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260915115448668"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915120017109"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -1286,10 +1286,9 @@ function costItems(d){
   (d.cost||[]).forEach(function(c,i){ list.push({id:d.id+'-'+i,n:c.n,a:c.a,c:c.c,m:c.m,base:true}); });
   (st.add[d.id]||[]).forEach(function(c){ list.push({id:c.id,n:c.n,a:c.a,c:c.c||'新增',base:false}); });
   list=list.filter(function(x){return !st.del[x.id];});
-  /* Day4：同时购清园宋宴(d4c)与清明上河园(d4b)时，门票费取高值不叠加（清园宋宴含入园） */
-  if(d.id==='d4' && isDone('d4b') && isDone('d4c')){
-    var kb=feeKey('d4',1);
-    list.forEach(function(x){ if(x.id===kb){ x.a=0; } });
+  /* Day4：同时购清园宋宴(d4 i=2)与清明上河园(d4 i=1)时，门票费取高值不叠加（清园宋宴含入园，覆盖清明上河园） */
+  if(d.id==='d4' && feeOn('d4',1) && feeOn('d4',2)){
+    list=list.filter(function(x){ return x.id!==feeKey('d4',1); });
   }
   return list;
 }
@@ -1321,13 +1320,10 @@ function toggleFee(dayId,i,on){
     var tcb=document.querySelector('[data-todo="'+f.tf+'"]');
     if(tcb){ tcb.checked=on; tcb.parentNode.classList.toggle('done',on); }
   }
-  /* 级联：勾选清园宋宴(d4c) → 同步勾选清明上河园购票(d4b)，费用取高值不叠加 */
-  if(on && f.tf==='d4c'){
-    var cbB=document.querySelector('[data-todo="d4b"]');
-    if(cbB && !isDone('d4b')){
-      st.todo['d4b']=true;
-      cbB.checked=true; cbB.parentNode.classList.add('done');
-      if(FEESYNC['d4b']) toggleFee(FEESYNC['d4b'].dayId, FEESYNC['d4b'].i, true);
+  /* 级联：勾选清园宋宴(d4 i=2) → 同步勾选清明上河园(d4 i=1)「已购票」；费用取高值不叠加（清园宋宴含入园） */
+  if(f.tf==='d4c' && on){
+    if(dayId==='d4' && day.spots[1] && day.spots[1].f && !feeOn('d4',1)){
+      toggleFee('d4', 1, true);
     }
   }
   save(); renderCost(day); refreshStats();
