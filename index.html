@@ -296,6 +296,26 @@ h1.big::before{
   font-size:12px;line-height:1.55
 }
 .senior b{color:var(--purple)}
+/* 景点卡片内「下午演出时刻表」可展开收起 */
+.showswitch{
+  width:100%;margin-top:9px;border:2.5px dashed var(--line);background:var(--paper2);color:var(--ink);
+  border-radius:13px 16px 12px 15px/15px 12px 16px 13px;padding:8px 11px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;gap:6px;
+  box-shadow:2px 2px 0 var(--shadow)
+}
+.showswitch:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--shadow)}
+.showswitch .swnum{font-size:10.5px;font-weight:700;background:var(--teal);color:#fff;padding:1px 7px;border-radius:9px;border:1.5px solid var(--teal)}
+.showswitch .carets{margin-left:auto;flex:none;font-size:13px;color:var(--ink2);transition:transform .22s}
+.showswitch.open .carets{transform:rotate(180deg)}
+.showtbl{display:none;margin-top:7px;border:2.5px solid var(--line);border-radius:14px;background:var(--card);box-shadow:2px 3px 0 var(--shadow);overflow:hidden}
+.showtbl.open{display:block}
+.showtbl .showhd,.showtbl .showrow{display:flex;align-items:baseline;gap:6px;padding:6px 9px;font-size:12px;line-height:1.45}
+.showtbl .showhd{background:var(--paper2);font-weight:800;border-bottom:2px solid var(--line)}
+.showtbl .showrow{border-bottom:1px dashed var(--ink3)}
+.showtbl .showrow:last-child{border-bottom:0}
+.showtbl .c1{flex:none;width:46px;font-weight:800;color:var(--purple);font-variant-numeric:tabular-nums}
+.showtbl .c2{flex:1;min-width:0;overflow-wrap:anywhere}
+.showtbl .c3{flex:none;width:74px;text-align:right;color:var(--ink2);font-size:11px}
 
 /* todo */
 .todo{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--ink3);font-size:13.5px;cursor:pointer}
@@ -596,7 +616,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260915141048215"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915150355917"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -660,9 +680,39 @@ var DAYS = [
    {n:'寿县',c:P(116.79,32.58)},{n:'阜阳',c:P(115.82,32.90)},{n:'周口',c:P(114.65,33.62)},{n:'开封',c:P(114.31,34.80)}]},
  weather:{hi:27,lo:17,txt:'多云转晴，空气干燥',dress:'长袖+薄外套'},
  spots:[
-  {n:'开封府',t:'下午',p:'65元',open:'约 7:30–18:00（以官方公告为准）',book:'公众号可预约/购票',
+  {n:'开封府',t:'下午',p:'65元',open:'7:30–22:30（日常最晚 17:30 入园）',book:'公众号可预约/购票',
    s:'60–69 周岁老人优惠票 <b>32 元</b>（下单时在公众号票种选「老人票/优待票」，以现场公示为准）。',
-   f:{a:65,s:32,n:'开封府',m:'长辈 60–69 周岁老人票 32 元',tf:'d3b'}},
+   f:{a:65,s:32,n:'开封府',m:'长辈 60–69 周岁老人票 32 元',tf:'d3b'},
+   show:[
+    {t:'14:30',v:'包公断案（铡赵王）',p:'大堂'},
+    {t:'14:50',v:'校场竞技',p:'英武楼'},
+    {t:'15:00',v:'《闸口盘车案》剧场版',p:'全息剧场（提前剧场门口预约）'},
+    {t:'15:10',v:'竹竿子之题名记碑',p:'东碑亭'},
+    {t:'15:30',v:'太极功夫',p:'天庆观'},
+    {t:'15:40',v:'火场惩顽',p:'潜火队'},
+    {t:'16:00',v:'榜前捉婿',p:'清心楼'},
+    {t:'16:15',v:'苏轼罢灯',p:'推判院'},
+    {t:'16:30',v:'《闸口盘车案》影院版',p:'全息剧场'},
+    {t:'16:30',v:'梅花堂前说四雅',p:'梅花堂'},
+    {t:'17:00',v:'演武迎宾',p:'英武楼'},
+    {t:'17:20',v:'竹竿子之题名记碑',p:'东碑亭'},
+    {t:'17:25',v:'包公巡衙之巧遇苏轼',p:'街道司'},
+    {t:'17:40',v:'《闸口盘车案》剧场版',p:'全息剧场'},
+    {t:'18:20',v:'东京幻市',p:'商业街'},
+    {t:'18:35',v:'竹竿子题名记碑',p:'东碑亭'},
+    {t:'18:55',v:'苏轼罢灯',p:'推判院'},
+    {t:'19:15',v:'崇正招军',p:'崇正门'},
+    {t:'19:30',v:'校场竞技',p:'英武楼'},
+    {t:'19:35',v:'水月云天+音乐喷泉秀',p:'明镜湖'},
+    {t:'20:00',v:'一盏灯·光启千年',p:'府门广场'},
+    {t:'20:12',v:'漫说苏轼',p:'东碑亭'},
+    {t:'20:20',v:'一座府·天下首府',p:'大堂'},
+    {t:'20:45',v:'崇正招军',p:'崇正门'},
+    {t:'21:00',v:'一台武·侠义家园',p:'英武楼'},
+    {t:'21:10',v:'一科举·前年魁榜',p:'太子读书台'},
+    {t:'21:20',v:'东京幻市',p:'商业街'},
+    {t:'21:35',v:'一雅集·遇见苏轼',p:'明镜湖'}
+   ]},
   {n:'包公祠',t:'下午 · 顺向游览',p:'30元',open:'约 7:30–18:00',book:'现场可购票',
    s:'60–69 周岁老人优惠票 <b>15 元</b>（以现场公示/公众号票种为准）。',
    f:{a:30,s:15,n:'包公祠',m:'长辈 60–69 周岁老人票 15 元'}},
@@ -1247,6 +1297,14 @@ function renderDays(){
            (s.f.m?'<div style="font-weight:400;color:var(--ink2);font-size:11.5px;margin-top:2px">'+s.f.m+'</div>':'')+'</div>'+
            '<label class="todo feecheck" for="'+fid+'"><input type="checkbox" id="'+fid+'" data-fee="'+d.id+'-'+i+'" '+(feeOn(d.id,i)?'checked':'')+'><span>已购票</span></label></div>';
       }
+      if(s.show&&s.show.length){
+        h+='<button type="button" class="showswitch" data-show="show-'+d.id+'-'+item.ref+'">🎭 下午演出时刻表<span class="swnum">'+s.show.length+' 场</span><span class="carets">▾</span></button>'+
+           '<div class="showtbl" id="show-'+d.id+'-'+item.ref+'"><div class="showhd"><span class="c1">时间</span><span class="c2">演出内容</span><span class="c3">演出地点</span></div>';
+        s.show.forEach(function(r){
+          h+='<div class="showrow"><span class="c1">'+r.t+'</span><span class="c2">'+r.v+'</span><span class="c3">'+r.p+'</span></div>';
+        });
+        h+='</div>';
+      }
       h+='</div>';
     });
     h+='</div>';
@@ -1424,6 +1482,14 @@ document.addEventListener('click',function(e){
     var op=!box.classList.contains('open');
     box.classList.toggle('open',op); st.map[mid]=op; save();
     el.textContent='🗺️ '+(op?'收起':'展开')+'地图 · 一键导航';
+    return;
+  }
+  if(el=e.target.closest('[data-show]')){
+    var tid=el.getAttribute('data-show');
+    var box=document.getElementById(tid);
+    if(!box) return;
+    var op=!box.classList.contains('open');
+    box.classList.toggle('open',op); el.classList.toggle('open',op);
     return;
   }
   if(el=e.target.closest('[data-bd]')){
