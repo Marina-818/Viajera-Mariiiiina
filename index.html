@@ -595,7 +595,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260915105914986"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915113038883"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -1781,28 +1781,21 @@ document.getElementById('btnToday').onclick=function(){
 
 /* ==================== 倒计时 ==================== */
 function pad(n){return String(n).padStart(2,'0');}
-/* ============ 此刻关注：递进识别（预约优先 → 出发+购票兜底） ============ */
+/* ============ 此刻关注：三段式递进（两预约验证 → 次日提醒 → 最近出发） ============ */
 /* 判断事件是否属于「需提前预约/抢」类型 */
 function isResvEvt(e){ return e.tag==='抢票'||e.tag==='预约'||e.tag==='抢号'; }
-/* 判断景点是否需要买票（付费景点，非免费/0元） */
+/* 仅需主动验证的两个预约项（清园宋宴 / 开封市博物馆），对应待办 id */
+var RESV_VALIDATE={'d4c':1,'d4t2':1};
+/* 景点是否需要买票（付费景点，非免费/0元） */
 function spotNeedsTicket(s){ return !!(s&&s.p) && s.p.indexOf('免费')!==0 && s.p.indexOf('0元')!==0; }
+/* 景点是否需要预约（must 或 book 含预约/预订） */
+function spotNeedsResv(s){ if(!s) return false; if(s.must) return true; return /预约|预订/.test(s.book||''); }
 /* 解析事件时间 */
 function parseEvtT(str){ return new Date(str.replace(/-/g,'/').replace('T',' ')); }
 /* 取某天 0 点时间戳 */
 function dayDateNum(d){ return new Date(d.date.replace(/-/g,'/')+' 00:00').getTime(); }
-/* 最近的「需要买票」景点（按所在天日期，过去的天跳过，留 1 天余量） */
-function nearestTicketSpot(now){
-  var best=null,bestD=Infinity;
-  DAYS.forEach(function(d){
-    var dd=dayDateNum(d);
-    if(dd<now.getTime()-86400000) return;
-    spotsOf(d).forEach(function(it){
-      if(!spotNeedsTicket(it.s)) return;
-      if(dd<bestD){ bestD=dd; best={day:d,s:it.s}; }
-    });
-  });
-  return best;
-}
+/* 今天的 0 点 */
+function startOfDay(d){ return new Date(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00'); }
 /* 渲染焦点卡片 */
 function renderFocus(cur){
   var now=new Date();
@@ -1818,19 +1811,48 @@ function renderFocus(cur){
 }
 function tick(){
   var now=new Date();
-  /* 规则1：自动识别「需提前预约/抢」事件，按时间递进，显示最近一个未办完的 */
+  /* 阶段1：仅验证两个预约项（清园宋宴 9/15、开封市博物馆 9/23），按时间递进显示最近未办完的 */
   var resv=null;
   for(var i=0;i<EVENTS.length;i++){
     var e=EVENTS[i];
     if(!isResvEvt(e)) continue;
+    if(!(e.dep && RESV_VALIDATE[e.dep])) continue;  // 只认这两个
     var t=parseEvtT(e.t);
-    if(t-now<=0) continue;                // 已过期（开售/开放时间已过）
-    if(e.dep && isDone(e.dep)) continue;  // 对应待办已勾 → 已预约/已购票，跳过
+    if(t-now<=0) continue;                // 开售/开放时间已过
+    if(isDone(e.dep)) continue;          // 待办已勾 → 已预约/已购票，跳过
     resv=e; resv._d=t; break;
   }
   if(resv){ renderFocus(resv); return; }
 
-  /* 规则2：待办中无待处理预约 → 按时间递进最近出发，并提示最近需买票景点 */
+  /* 阶段2：第二天提醒 —— 若「明天」这天有需预约/购票的景点，提前一天提醒（已勾相关待办则视为办妥，跳过） */
+  var tom0=startOfDay(now).getTime()+86400000;
+  var remind=null;
+  for(var k=0;k<DAYS.length;k++){
+    var d=DAYS[k], dd=dayDateNum(d);
+    if(dd<tom0) continue;
+    if(dd>tom0) break;                   // DAYS 按日期升序，只看明天
+    var need=spotsOf(d).filter(function(it){ return spotNeedsTicket(it.s)||spotNeedsResv(it.s); });
+    if(!need.length) continue;
+    var handled=todosOf(d).some(function(t){ return isDone(t.id)&&/预约|购票|抢|票|订/.test(t.t); });
+    if(handled) continue;                // 用户已勾选相关待办 → 落出发
+    remind={day:d,need:need}; break;
+  }
+  if(remind){
+    var names=remind.need.map(function(it){return it.s.n;}).join('、');
+    var hasResv=remind.need.some(function(it){return spotNeedsResv(it.s);});
+    var hasTicket=remind.need.some(function(it){return spotNeedsTicket(it.s);});
+    var verb=(hasResv&&hasTicket)?'预约/购票':(hasResv?'预约':'购票');
+    renderFocus({
+      tag:'提醒',
+      n:'明日需'+verb+'：'+names,
+      m:remind.day.title+' · '+remind.day.date.slice(5).replace('-','/')+' · 提前一天准备好',
+      t:remind.day.date+'T08:00',
+      _d:parseEvtT(remind.day.date+'T08:00')
+    });
+    return;
+  }
+
+  /* 阶段3：兜底 —— 无待处理预约/购票，或都已办妥 → 自动落到最近的出发 */
   var dep=null;
   for(var i=0;i<EVENTS.length;i++){
     var e=EVENTS[i];
@@ -1838,13 +1860,8 @@ function tick(){
     var t=parseEvtT(e.t);
     if(t-now>0){ dep=e; dep._d=t; break; }
   }
-  var sp=nearestTicketSpot(now);
-  if(dep){
-    var extra='';
-    if(sp) extra='最近需购票：'+sp.s.n+'（'+sp.s.p+'）· '+sp.day.date.slice(5).replace('-','/');
-    renderFocus({tag:'出发', n:dep.n, m:(extra||'准备出发，检查车况与行李'), t:dep.t, _d:dep._d});
-    return;
-  }
+  if(dep){ renderFocus({tag:'出发', n:dep.n, m:'准备出发，检查车况与行李', t:dep.t, _d:dep._d}); return; }
+
   /* 全行程结束 */
   document.getElementById('nowTag').textContent='行程已结束';
   document.getElementById('nowTitle').textContent='🎉 这趟环线跑完了，平安到家';
