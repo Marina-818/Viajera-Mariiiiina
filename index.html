@@ -167,6 +167,17 @@ h1.big::before{
   background-repeat:no-repeat;background-position:right 11px center;background-size:12px 8px;
 }
 .catpick{max-width:100%}
+.catbtn{
+  -webkit-appearance:none;appearance:none;
+  font-family:inherit;font-size:13px;font-weight:700;color:var(--ink);
+  background-color:var(--card);border:2px solid var(--line);border-radius:10px;
+  padding:9px 32px 9px 12px;box-shadow:2px 2px 0 var(--shadow);
+  cursor:pointer;line-height:1.4;flex:0 0 var(--addw);width:var(--addw);
+  margin-right:4px;text-align:left;position:relative;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23786A4A' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;background-size:12px 8px;
+}
+.catbtn:hover{border-color:var(--teal);background-color:var(--paper)}
 .addrow select.cat{margin-right:4px}
 .catpick:hover,.addrow select.cat:hover{border-color:var(--teal);background-color:var(--paper)}
 .catpick:focus,.addrow select.cat:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(38,166,154,.18)}
@@ -457,6 +468,46 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 .adok{background:var(--teal);color:#fff}
 .adbtns button:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--shadow)}
 .adhint{text-align:center;font-size:10.5px;color:var(--ink3);margin-top:10px;letter-spacing:.4px}
+/* ---------- 类别选择器弹窗（与添加美食/景点弹窗风格一致） ---------- */
+.catpicker-modal{
+  position:fixed;inset:0;top:0;left:0;right:0;bottom:0;z-index:210;display:none;
+  align-items:center;justify-content:center;padding:18px;box-sizing:border-box;
+  background:rgba(60,50,38,.42);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)
+}
+.catpicker-modal.on{display:flex}
+.catpicker-card{
+  position:relative;width:100%;max-width:340px;box-sizing:border-box;background:var(--card);
+  border:3px solid var(--line);border-radius:18px 22px 16px 20px/20px 16px 22px 18px;
+  box-shadow:5px 5px 0 var(--shadow);padding:17px 17px 13px;
+  animation:adpop .22s ease-out;max-height:72vh;overflow:auto
+}
+.catpicker-card .cp-tape{
+  position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(-1.4deg);
+  width:76px;height:20px;background:var(--tape);border:1px dashed var(--ink3);border-radius:4px
+}
+.cp-head{display:flex;align-items:center;gap:7px;font-size:15.5px;font-weight:800;color:var(--ink);letter-spacing:.5px}
+.cp-head .dot{width:10px;height:10px;border:1.5px solid var(--line);border-radius:50%;flex:none;background:var(--teal)}
+.cp-head .cp-close{
+  margin-left:auto;flex:none;width:24px;height:24px;line-height:20px;text-align:center;
+  border:2px solid var(--line);border-radius:50%;background:var(--paper2);color:var(--ink2);
+  font-size:15px;font-weight:700;cursor:pointer
+}
+.cp-head .cp-close:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.cp-sub{font-size:11.5px;color:var(--ink2);margin:7px 0 10px;line-height:1.6}
+.cp-list{display:flex;flex-direction:column;gap:4px}
+.cp-item{
+  display:flex;align-items:center;gap:9px;padding:10px 12px;border:2px solid var(--line);
+  border-radius:11px 13px 10px 12px/12px 10px 13px 11px;cursor:pointer;
+  font-family:inherit;font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--paper);transition:all .15s;user-select:none
+}
+.cp-item:hover{border-color:var(--teal);background:var(--card);transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--shadow)}
+.cp-item.active{border-color:var(--teal);background:var(--teal);color:#fff}
+.cp-item .cp-icon{font-size:18px;flex:none;line-height:1}
+.cp-item .cp-name{flex:1}
+.cp-item .cp-count{font-size:11.5px;color:var(--ink2);font-weight:600}
+.cp-item.active .cp-count{color:rgba(255,255,255,.8)}
+
 .priceline{font-size:12px;color:var(--ink2);margin:4px 0 2px;padding-left:2px}
 </style>
 </head>
@@ -492,7 +543,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
     <div class="stat"><div class="k">总里程</div><div class="v"><span class="mk">2512</span><span class="u"> km</span></div><div class="m">日均 251 km</div></div>
     <div class="stat"><div class="k">待办完成进度</div><div class="v"><span class="mk mk3" id="tdDone">0</span>/<span id="tdAll">0</span></div><div class="bar"><i id="tdBar"></i></div></div>
     <div class="stat"><div class="k">花费项目合计</div><div class="v">¥<span class="mk mk2" id="sumCatVal">0</span></div>
-      <div class="catrow"><select class="catpick" id="sumCat" aria-label="按类别查看小计"></select></div></div>
+      <div class="catrow"><button type="button" class="catpick" id="sumCatBtn" aria-label="按类别查看小计">选择类别</button><select class="catpick" id="sumCat" style="display:none" aria-label="按类别查看小计"></select></div></div>
     <div class="stat"><div class="k">花费总计</div><div class="v">¥<span class="mk mk2" id="sumAll">0</span></div><div class="m" id="sumAvg">日均 ¥0</div></div>
   </div>
 </div>
@@ -544,7 +595,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260914180156815"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915100123714"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -1220,7 +1271,7 @@ function renderDays(){
     // ⑦ 花费
     h+='<div class="blk"><div class="blkt g">⑦ 🥺感觉荷包扁扁的💔</div><table class="cost" id="cost-'+d.id+'"></table>'+
        '<div class="addrow">'+
-       '<select class="cat" data-cat="'+d.id+'"><option value="餐饮">🍚 餐饮</option><option value="门票">🎟️ 门票</option><option value="住宿">🏠 住宿</option><option value="油费">⛽ 油费</option><option value="高速">🛣️ 高速</option><option value="停车">🅿️ 停车</option><option value="购物">🛍️ 购物</option><option value="其他">✏️ 其他</option></select>'+
+       '<button type="button" class="cat catbtn" data-catbtn="'+d.id+'">🍚 餐饮</button><select class="cat" style="display:none" data-cat="'+d.id+'"><option value="餐饮">🍚 餐饮</option><option value="门票">🎟️ 门票</option><option value="住宿">🏠 住宿</option><option value="油费">⛽ 油费</option><option value="高速">🛣️ 高速</option><option value="停车">🅿️ 停车</option><option value="购物">🛍️ 购物</option><option value="其他">✏️ 其他</option></select>'+
        '<input class="n" placeholder="备注（可不填）" data-in="'+d.id+'"><input class="a" type="number" inputmode="decimal" placeholder="金额" data-amt="'+d.id+'"><button data-add="'+d.id+'">＋ 添加</button></div>'+
        '</div>';
 
@@ -1341,6 +1392,7 @@ function refreshCatSum(){
   });
   el.innerHTML=h; el.value=cur;
   document.getElementById('sumCatVal').textContent=money(cur==='__all__'?totalAll():(s.t[cur]||0));
+  updateSumCatBtnText(cur);
 }
 function refreshStats(){
   var all=0, done=0;
@@ -1410,6 +1462,29 @@ document.addEventListener('click',function(e){
   if(el=e.target.closest('[data-delitem]')){
     e.preventDefault();
     delListItem(el.getAttribute('data-delitem'),el.getAttribute('data-day'),el.getAttribute('data-ref'));
+    return;
+  }
+  /* 类别选择器：概况区按钮 → 打开 sum 模式 */
+  if(e.target.closest('#sumCatBtn')){
+    var curSum=document.getElementById('sumCat');
+    openCatPicker('sum',null,curSum?curSum.value:'__all__',null);
+    return;
+  }
+  /* 类别选择器：新增花费行按钮 → 打开 add 模式 */
+  if(el=e.target.closest('[data-catbtn]')){
+    var did=el.getAttribute('data-catbtn');
+    var curAdd=document.querySelector('[data-cat="'+did+'"]');
+    openCatPicker('add',did,curAdd?curAdd.value:'餐饮',null);
+    return;
+  }
+  /* 类别选择器弹窗内：选中一项 */
+  if(el=e.target.closest('[data-cpv]')){
+    selectCatPicker(el.getAttribute('data-cpv'));
+    return;
+  }
+  /* 类别选择器弹窗内：关闭 */
+  if(e.target.closest('[data-cpclose]')||e.target.id==='catPicker'){
+    closeCatPicker();
     return;
   }
 });
@@ -1526,6 +1601,77 @@ function closeAddDialog(){
   if(m){ m.classList.remove('on'); m.innerHTML=''; }
   addCtx=null;
 }
+
+/* ==================== 类别选择器弹窗（与添加美食/景点弹窗风格一致） ==================== */
+var catPickerCtx=null; /* {type:'sum'|'add', dayId: string, onSelect: fn} */
+function openCatPicker(type, dayId, currentVal, onSelect){
+  var m=document.getElementById('catPicker'); if(!m) return;
+  catPickerCtx={type:type, dayId:dayId, onSelect:onSelect};
+  var s=catStat();
+  var cats=CATORDER.concat(Object.keys(s.t).filter(function(c){ return CATORDER.indexOf(c)<0; }));
+  cats.sort(function(a,b){
+    var ia=CATORDER.indexOf(a), ib=CATORDER.indexOf(b);
+    if(ia<0) ia=CATORDER.length;
+    if(ib<0) ib=CATORDER.length;
+    return (ia-ib)||String(a).localeCompare(String(b),'zh');
+  });
+  var title=type==='sum'?'选择花费类别':'选择花费类别';
+  var sub=type==='sum'?'点击类别筛选对应花费小计':'选择新增项的所属类别';
+  var parts=[];
+  parts.push('<div class="catpicker-card"><div class="cp-tape"></div>');
+  parts.push('<div class="cp-head"><i class="dot"></i><span>'+title+'</span><b class="cp-close" data-cpclose="1" title="close">&times;</b></div>');
+  parts.push('<div class="cp-sub">'+sub+'</div><div class="cp-list">');
+  if(type==='sum'){
+    var allActive=currentVal==='__all__'?' active':'';
+    parts.push('<div class="cp-item'+allActive+'" data-cpv="__all__">');
+    parts.push('<span class="cp-icon">📋</span><span class="cp-name">全部类别</span>');
+    parts.push('<span class="cp-count">'+Object.keys(s.t).length+' 类有花费</span></div>');
+  }
+  cats.forEach(function(c){
+    var active=(c===currentVal)?' active':'';
+    var icon=CATICON[c]||'·';
+    parts.push('<div class="cp-item'+active+'" data-cpv="'+c+'">');
+    parts.push('<span class="cp-icon">'+icon+'</span>');
+    parts.push('<span class="cp-name">'+c+'</span>');
+    if(type==='sum'){
+      parts.push('<span class="cp-count">'+(s.n[c]||0)+' 笔 · ¥'+(s.t[c]||0)+'</span>');
+    }
+    parts.push('</div>');
+  });
+  parts.push('</div></div>');
+  var h=parts.join('');
+  m.innerHTML=h; m.classList.add('on');
+}
+function closeCatPicker(){
+  var m=document.getElementById('catPicker');
+  if(m){ m.classList.remove('on'); m.innerHTML=''; }
+  catPickerCtx=null;
+}
+function selectCatPicker(val){
+  if(!catPickerCtx) return;
+  /* 更新隐藏 select 的值 */
+  if(catPickerCtx.type==='sum'){
+    var el=document.getElementById('sumCat');
+    if(el){ el.value=val; refreshCatSum(); }
+    /* 更新按钮文字 */
+    updateSumCatBtnText(val);
+  } else {
+    var sel=document.querySelector('[data-cat="'+catPickerCtx.dayId+'"]');
+    if(sel) sel.value=val;
+    /* 更新按钮文字 */
+    var btn=document.querySelector('[data-catbtn="'+catPickerCtx.dayId+'"]');
+    if(btn) btn.textContent=(CATICON[val]||'·')+' '+val;
+    if(catPickerCtx.onSelect) catPickerCtx.onSelect(val);
+  }
+  closeCatPicker();
+}
+function updateSumCatBtnText(val){
+  var btn=document.getElementById('sumCatBtn');
+  if(!btn) return;
+  if(val==='__all__'){ btn.textContent='📋 全部类别'; return; }
+  var s=catStat();
+  btn.textContent=(CATICON[val]||'·')+' '+val;
+}
 function confirmAddDialog(){
   if(!addCtx) return;
   var m=document.getElementById('addModal'); if(!m) return;
@@ -1557,9 +1703,13 @@ function confirmAddDialog(){
 }
 document.addEventListener('keydown',function(e){
   var m=document.getElementById('addModal');
-  if(!m||!m.classList.contains('on')) return;
-  if(e.key==='Escape'){ e.preventDefault(); closeAddDialog(); }
-  else if(e.key==='Enter'){ e.preventDefault(); confirmAddDialog(); }
+  if(m&&m.classList.contains('on')){
+    if(e.key==='Escape'){ e.preventDefault(); closeAddDialog(); }
+    else if(e.key==='Enter'){ e.preventDefault(); confirmAddDialog(); }
+    return;
+  }
+  var cp=document.getElementById('catPicker');
+  if(cp&&cp.classList.contains('on')&&e.key==='Escape'){ e.preventDefault(); closeCatPicker(); }
 });
 document.addEventListener('click',function(e){
   var m=document.getElementById('addModal');
@@ -1763,5 +1913,6 @@ setInterval(tick,1000);
 })();
 </script>
 <div id="addModal" class="addmodal" role="dialog" aria-modal="true"></div>
+<div id="catPicker" class="catpicker-modal" role="dialog" aria-modal="true"></div>
 </body>
 </html>
