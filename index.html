@@ -616,7 +616,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260915163239193"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915165918225"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -981,7 +981,7 @@ var EVENTS = [
 
 /* ==================== 存储 ==================== */
 var LS = 'hh2026autumnV1';
-var st = {todo:{},del:{},add:{},open:{},map:{},hotel:{},addTodo:{},delTodo:{},addSpot:{},delSpot:{},addMeal:{},delMeal:{},theme:''};
+var st = {todo:{},del:{},add:{},open:{},map:{},hotel:{},addTodo:{},delTodo:{},addSpot:{},delSpot:{},addMeal:{},delMeal:{},theme:'',lastExp:null};
 try{var raw=localStorage.getItem(LS); if(raw){var o=JSON.parse(raw); for(var k in o) st[k]=o[k];}}catch(e){}
 /* 默认勾选：数据中 t.done===true 的待办载入即视为已完成（localStorage 手动改动优先） */
 try{ DAYS.forEach(function(d){ d.todos.forEach(function(t){ if(t.done && st.todo[t.id]===undefined) st.todo[t.id]=true; }); }); }catch(e){}
@@ -1373,6 +1373,7 @@ function toggleFee(dayId,i,on){
     var has=false;
     st.add[dayId].forEach(function(x){ if(x.id===id) has=true; });
     if(!has) st.add[dayId].push({id:id,n:f.n+' 2人门票（成人'+f.a+'＋长辈'+f.s+'）',a:f.a+f.s,c:'门票',fee:true});
+    markExpense('门票'); /* 勾选「已购票」= 最新一笔消费（门票） */
   } else st.del[id]=true;
   if(f.tf){ /* 门票勾选 ↔ 联动待办 自动同步 */
     st.todo[f.tf]=on;
@@ -1418,14 +1419,17 @@ function catStat(){
   });
   return {t:t,n:n};
 }
-/* 最近新增记录的类别：优先取用户最新手动新增的那条花费所属类别（持久化于 st.lastAdd），
-   若尚无新增记录则回退为按行程顺序的最后一条花费项类别 */
+/* 最近一笔消费所属类别：每次新增花费（手动添加 / 勾选「已购票」）都会打时间戳记录，
+   默认取时间戳最新的那一笔；无记录时回退为按行程顺序的最后一条花费项类别 */
+var sumCatManual=false; /* 本次会话用户是否手动选过「花费项目合计」的类别 */
 function recentCat(){
+  if(st.lastExp && st.lastExp.c) return st.lastExp.c;
   if(st.lastAdd) return st.lastAdd;
   var last=null;
   DAYS.forEach(function(d){ costItems(d).forEach(function(x){ last=x.c||'其他'; }); });
   return last;
 }
+function markExpense(cat){ st.lastExp={c:cat,ts:Date.now()}; }
 function refreshCatSum(){
   var el=document.getElementById('sumCat'); if(!el) return;
   var s=catStat();
@@ -1437,9 +1441,9 @@ function refreshCatSum(){
     if(ib<0) ib=CATORDER.length;
     return (ia-ib)||String(a).localeCompare(String(b),'zh');
   });
-  /* 用户未手动选择过时，默认落在「最近记录的具体类别」而非「全部类别」 */
+  /* 默认落在「最近一笔消费」的类别；用户手动选过后本次会话内保持其选择 */
   var cur=el.value||'';
-  if(!cur) cur=recentCat()||'__all__';
+  if(!(sumCatManual && cur)) cur=recentCat()||'__all__';
   if(cur!=='__all__' && cats.indexOf(cur)<0) cur='__all__';
   var h='<option value="__all__">📋 全部类别（'+Object.keys(s.t).length+' 类有花费）</option>';
   cats.forEach(function(c){
@@ -1505,7 +1509,7 @@ document.addEventListener('click',function(e){
     if(!n) n=cat+'费用';
     st.add[did]=st.add[did]||[];
     st.add[did].push({id:did+'-x'+Date.now(),n:n,a:a,c:cat});
-    st.lastAdd=cat;
+    st.lastAdd=cat; markExpense(cat);
     nin.value='';ain.value=''; save(); renderCost(DAYS.filter(function(d){return d.id===did;})[0]); refreshStats();
     return;
   }
@@ -1715,6 +1719,7 @@ function selectCatPicker(val){
   /* 更新隐藏 select 的值 */
   if(catPickerCtx.type==='sum'){
     var el=document.getElementById('sumCat');
+    sumCatManual=true;
     if(el){ el.value=val; refreshCatSum(); }
     /* 更新按钮文字 */
     updateSumCatBtnText(val);
