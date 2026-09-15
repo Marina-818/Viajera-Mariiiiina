@@ -595,7 +595,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260915103340295"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915105914986"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -913,7 +913,7 @@ var TIPS = [
 /* 倒计时事件 */
 var EVENTS = [
  {t:'2026-09-15T09:00',tag:'抢票',n:'清园宋宴开售（提前预订）',m:'9/29 入园场次 · 9/15 起可购 · 不升级就不用管',nt:1},
- {t:'2026-09-23T09:00',tag:'预约',n:'开封市博物馆 开放预约 9/29 场次',m:'提前7天（9/23 起可约），公众号抢，最难的一步'},
+ {t:'2026-09-23T09:00',tag:'预约',n:'开封市博物馆 开放预约 9/29 场次',m:'提前7天（9/23 起可约），公众号抢，最难的一步',dep:'d4t2'},
  {t:'2026-09-26T10:00',tag:'出发',n:'Day1 景德镇出发 → 寿县（450km）',m:''},
  {t:'2026-09-27T09:00',tag:'行程',n:'Day2 安徽楚文化博物馆 开馆',m:'免预约，带身份证'},
  {t:'2026-09-28T10:00',tag:'出发',n:'Day3 寿县出发 → 开封（411km）',m:'周一，博物馆闭馆已避开'},
@@ -1781,21 +1781,31 @@ document.getElementById('btnToday').onclick=function(){
 
 /* ==================== 倒计时 ==================== */
 function pad(n){return String(n).padStart(2,'0');}
-function tick(){
+/* ============ 此刻关注：递进识别（预约优先 → 出发+购票兜底） ============ */
+/* 判断事件是否属于「需提前预约/抢」类型 */
+function isResvEvt(e){ return e.tag==='抢票'||e.tag==='预约'||e.tag==='抢号'; }
+/* 判断景点是否需要买票（付费景点，非免费/0元） */
+function spotNeedsTicket(s){ return !!(s&&s.p) && s.p.indexOf('免费')!==0 && s.p.indexOf('0元')!==0; }
+/* 解析事件时间 */
+function parseEvtT(str){ return new Date(str.replace(/-/g,'/').replace('T',' ')); }
+/* 取某天 0 点时间戳 */
+function dayDateNum(d){ return new Date(d.date.replace(/-/g,'/')+' 00:00').getTime(); }
+/* 最近的「需要买票」景点（按所在天日期，过去的天跳过，留 1 天余量） */
+function nearestTicketSpot(now){
+  var best=null,bestD=Infinity;
+  DAYS.forEach(function(d){
+    var dd=dayDateNum(d);
+    if(dd<now.getTime()-86400000) return;
+    spotsOf(d).forEach(function(it){
+      if(!spotNeedsTicket(it.s)) return;
+      if(dd<bestD){ bestD=dd; best={day:d,s:it.s}; }
+    });
+  });
+  return best;
+}
+/* 渲染焦点卡片 */
+function renderFocus(cur){
   var now=new Date();
-  var cur=null;
-  for(var i=0;i<EVENTS.length;i++){
-    if(EVENTS[i].dep && !isDone(EVENTS[i].dep)) continue;
-    var t=new Date(EVENTS[i].t.replace(/-/g,'/').replace('T',' '));
-    if(t-now>0){cur=EVENTS[i];cur._d=t;break;}
-  }
-  if(!cur){
-    document.getElementById('nowTag').textContent='行程已结束';
-    document.getElementById('nowTitle').textContent='🎉 这趟环线跑完了，平安到家';
-    document.getElementById('nowNote').textContent='2512km · 皖豫鄂湘 · 下一趟去哪儿？';
-    ['cdD','cdH','cdM','cdS'].forEach(function(id){document.getElementById(id).textContent='00';});
-    return;
-  }
   var ms=cur._d-now, s=Math.floor(ms/1000);
   var D=Math.floor(s/86400), H=Math.floor(s%86400/3600), M=Math.floor(s%3600/60), S=s%60;
   document.getElementById('nowTag').textContent=cur.tag;
@@ -1805,6 +1815,41 @@ function tick(){
   document.getElementById('cdH').textContent=pad(H);
   document.getElementById('cdM').textContent=pad(M);
   document.getElementById('cdS').textContent=pad(S);
+}
+function tick(){
+  var now=new Date();
+  /* 规则1：自动识别「需提前预约/抢」事件，按时间递进，显示最近一个未办完的 */
+  var resv=null;
+  for(var i=0;i<EVENTS.length;i++){
+    var e=EVENTS[i];
+    if(!isResvEvt(e)) continue;
+    var t=parseEvtT(e.t);
+    if(t-now<=0) continue;                // 已过期（开售/开放时间已过）
+    if(e.dep && isDone(e.dep)) continue;  // 对应待办已勾 → 已预约/已购票，跳过
+    resv=e; resv._d=t; break;
+  }
+  if(resv){ renderFocus(resv); return; }
+
+  /* 规则2：待办中无待处理预约 → 按时间递进最近出发，并提示最近需买票景点 */
+  var dep=null;
+  for(var i=0;i<EVENTS.length;i++){
+    var e=EVENTS[i];
+    if(e.tag!=='出发') continue;
+    var t=parseEvtT(e.t);
+    if(t-now>0){ dep=e; dep._d=t; break; }
+  }
+  var sp=nearestTicketSpot(now);
+  if(dep){
+    var extra='';
+    if(sp) extra='最近需购票：'+sp.s.n+'（'+sp.s.p+'）· '+sp.day.date.slice(5).replace('-','/');
+    renderFocus({tag:'出发', n:dep.n, m:(extra||'准备出发，检查车况与行李'), t:dep.t, _d:dep._d});
+    return;
+  }
+  /* 全行程结束 */
+  document.getElementById('nowTag').textContent='行程已结束';
+  document.getElementById('nowTitle').textContent='🎉 这趟环线跑完了，平安到家';
+  document.getElementById('nowNote').textContent='2512km · 皖豫鄂湘 · 下一趟去哪儿？';
+  ['cdD','cdH','cdM','cdS'].forEach(function(id){document.getElementById(id).textContent='00';});
 }
 
 /* ==================== 胶带拼贴装饰 ==================== */
