@@ -273,8 +273,8 @@ h1.big::before{
 .wx a{color:var(--blue);font-weight:700}
 
 .blk{margin-top:14px}
-.blkt{font-size:14.5px;font-weight:600;letter-spacing:1.2px;color:var(--ink);display:flex;align-items:center;gap:6px;margin-bottom:6px;font-family:'PingFang SC','Microsoft YaHei','Hiragino Sans GB','Noto Sans CJK SC',sans-serif}
-.blkt::before{content:"";width:9px;height:9px;background:var(--teal);border:1.5px solid var(--line);border-radius:50%;flex:none}
+.blkt{font-size:14.5px;font-weight:600;letter-spacing:1.2px;color:var(--ink);display:flex;align-items:flex-start;gap:6px;margin-bottom:6px;font-family:'PingFang SC','Microsoft YaHei','Hiragino Sans GB','Noto Sans CJK SC',sans-serif}
+.blkt::before{content:"";width:9px;height:9px;background:var(--teal);border:1.5px solid var(--line);border-radius:50%;flex:none;margin-top:.42em}
 .blkt.r::before{background:var(--red)}.blkt.g::before{background:var(--gold)}
 .blkt.b::before{background:var(--blue)}.blkt.p::before{background:var(--purple)}
 
@@ -325,7 +325,7 @@ h1.big::before{
 .todo .delbtn:hover,.spot .delbtn:hover,.eat .delbtn:hover,
 .todo .delbtn:active,.spot .delbtn:active,.eat .delbtn:active{background:var(--red);color:#fff;border-color:var(--red)}
 .addbtn{
-  margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:4px;font-family:inherit;
+  margin-left:auto;flex:none;align-self:center;display:inline-flex;align-items:center;gap:4px;font-family:inherit;
   font-size:11.5px;font-weight:700;color:var(--blue);border:1.5px dashed var(--blue);
   border-radius:9px;padding:3px 10px;cursor:pointer;background:transparent;white-space:nowrap;
   transition:background .15s,transform .15s
@@ -595,7 +595,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260915113618444"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915115448668"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
