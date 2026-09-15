@@ -616,7 +616,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260915165918225"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260915181424018"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -1320,9 +1320,18 @@ function renderDays(){
 
 function costItems(d){
   var list=[];
-  (d.cost||[]).forEach(function(c,i){ list.push({id:d.id+'-'+i,n:c.n,a:c.a,c:c.c,m:c.m,base:true}); });
+  /* 高速费：按当日 drive.toll 自动计入（付费日显示金额、免费日显示 0 元）；锁定不可删除，避免漏记 */
+  if(d.drive && d.drive.toll!==undefined){
+    if(d.drive.tollFree){
+      list.push({id:d.id+'-auto-toll', n:'免费时段（0元）', a:0, c:'高速', base:true, auto:true});
+    } else if(d.drive.toll>0){
+      var rt=String(d.drive.road||'').split('（')[0].replace(/\s*→\s*/g,'→');
+      list.push({id:d.id+'-auto-toll', n:rt||'高速通行费', a:d.drive.toll, c:'高速', base:true, auto:true});
+    }
+  }
+  (d.cost||[]).forEach(function(c,i){ if(c.c==='高速') return; list.push({id:d.id+'-'+i,n:c.n,a:c.a,c:c.c,m:c.m,base:true}); });
   (st.add[d.id]||[]).forEach(function(c){ list.push({id:c.id,n:c.n,a:c.a,c:c.c||'新增',base:false}); });
-  list=list.filter(function(x){return !st.del[x.id];});
+  list=list.filter(function(x){ return x.auto || !st.del[x.id]; });
   /* Day4：同时购清园宋宴(d4 i=2)与清明上河园(d4 i=1)时，门票费取高值不叠加（清园宋宴含入园，覆盖清明上河园） */
   if(d.id==='d4' && feeOn('d4',1) && feeOn('d4',2)){
     list=list.filter(function(x){ return x.id!==feeKey('d4',1); });
@@ -1372,8 +1381,9 @@ function renderCost(d){
   if(!items.length){ h='<tr><td colspan="3" style="color:var(--ink3);font-size:11.5px;padding:6px 2px">暂无花费项，可在下方自行新增</td></tr>'; }
   items.forEach(function(x){
     sum+=Number(x.a)||0;
+    var delbtn = x.auto ? '' : '<button class="delbtn" data-del="'+x.id+'" data-day="'+d.id+'">×</button>';
     h+='<tr><td><span class="pill" style="margin:0 8px 0 0">'+x.c+'</span>'+x.n+'</td>'+
-       '<td class="amt">¥'+money(x.a)+'</td><td class="del"><button class="delbtn" data-del="'+x.id+'" data-day="'+d.id+'">×</button></td></tr>';
+       '<td class="amt">¥'+money(x.a)+'</td><td class="del">'+delbtn+'</td></tr>';
   });
   h+='<tr class="sum"><td>今日合计</td><td class="amt">¥'+money(sum)+'</td><td class="del"></td></tr>';
   el.innerHTML=h;
