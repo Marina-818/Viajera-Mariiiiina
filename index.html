@@ -561,7 +561,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 <h2 class="sec-title"><span class="n">1</span>行程概况</h2>
 <div class="card">
   <div class="stats">
-    <div class="stat"><div class="k">总里程</div><div class="v"><span class="mk">2512</span><span class="u"> km</span></div><div class="m">日均 251 km</div></div>
+    <div class="stat"><div class="k">总里程</div><div class="v"><span class="mk">2816</span><span class="u"> km</span></div><div class="m">日均 282 km</div></div>
     <div class="stat"><div class="k">待办完成进度</div><div class="v"><span class="mk mk3" id="tdDone">0</span>/<span id="tdAll">0</span></div><div class="bar"><i id="tdBar"></i></div></div>
     <div class="stat"><div class="k">花费项目合计</div><div class="v">¥<span class="mk mk2" id="sumCatVal">0</span></div>
       <div class="catrow"><button type="button" class="catpick" id="sumCatBtn" aria-label="按类别查看小计">选择类别</button><select class="catpick" id="sumCat" style="display:none" aria-label="按类别查看小计"></select></div></div>
@@ -574,7 +574,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 <div class="card flat" style="padding:0;overflow:hidden">
   <div class="mapframe">
     <div class="maplbl">楚风千里 · 我蛮夷也</div>
-    <img class="mapimg" src="maps/overview.webp" data-src="maps/overview.webp" data-fb="maps/overview.png" data-fbpng="maps/overview.png" alt="皖豫鄂赣环线自驾路线总览" width="1600" height="1911" loading="lazy" decoding="async" fetchpriority="high">
+    <img class="mapimg" src="maps/overview.webp" data-src="maps/overview.webp" data-fb="maps/overview.png" data-fbpng="maps/overview.png" alt="皖豫鄂湘环线自驾路线总览" width="1600" height="2433" loading="lazy" decoding="async" fetchpriority="high">
   </div>
 </div>
 
@@ -616,7 +616,7 @@ footer{text-align:center;color:var(--ink3);font-size:11.5px;margin:26px 0 10px;l
 </div>
 
 <script>
-window.APP_VER="20260916144451180"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
+window.APP_VER="20260916153414963"; /* 自动刷新版本戳：由同步脚本写入，勿手动改 */
 /* ==================== 数据 ==================== */
 
 function P(a,b){return [a,b];}
@@ -769,10 +769,13 @@ var DAYS = [
  weather:{hi:27,lo:17,txt:'晴到多云',dress:'短袖即可'},
  spots:[
   {n:'曹操高陵遗址博物馆',t:'中午 · 约2h',p:'50元（长辈免费）',open:'8:30–17:30（以公告为准）',book:'线上预约',
-   s:'曹操墓葬本体，汉魏风格展陈；长辈免票，带身份证。'},
-  {n:'殷墟妇好墓',t:'下午 · 约1h',p:'50元（长辈免费）',open:'随殷墟开放',s:'商代王室墓葬，甲骨文与青铜重器出土地；位于殷墟遗址宫殿宗庙遗址。'},
-  {n:'殷墟博物馆（夜场）',t:'17:30–20:30 · 约3h',p:'需购票',open:'夜场 17:30 进馆 · 20:30 闭馆',book:'公众号预约夜场',
-   s:'新馆夜场，避开日间高温与人群；17:30 前进馆，逛到闭馆。'}
+   s:'曹操墓葬本体，汉魏风格展陈；长辈免票，带身份证。',
+   f:{a:50,s:0,n:'曹操高陵遗址博物馆',m:'成人 50元；60 周岁以上凭证件免票（同批免票还有现退役军人、1.4 米以下儿童）'}},
+  {n:'殷墟妇好墓',t:'下午 · 约1h',p:'50元（长辈免费）',open:'随殷墟开放 · 17:30 闭园',s:'商代王室墓葬，甲骨文与青铜重器出土地；<b>就在殷墟遗址宫殿宗庙遗址内</b>（即「殷墟遗址」门票所含范围）。',
+   f:{a:50,s:0,n:'殷墟遗址（宫殿宗庙）',m:'成人 50元；60 周岁以上凭证件免票。妇好墓在宫殿宗庙遗址内，持这张票即含'}},
+  {n:'殷墟博物馆（夜场）',t:'17:30–20:30 · 约3h',p:'夜场 40元（长辈免费）',open:'夜场 17:30 进馆 · 20:30 闭馆 · 19:10 停止入场',book:'公众号预约夜场',
+   s:'新馆夜场，避开日间高温与人群；17:30 前进馆，逛到闭馆。<b>夜场只在殷墟博物馆新馆</b>，宫殿宗庙与王陵遗址夜间不开放。⚠️ 夜场开放日与票种以「殷墟博物馆」公众号当日公告为准（9/30 是周三，出发前先确认当天有没有夜场，咨询 0372-5993308）。',
+   f:{a:40,s:0,n:'殷墟博物馆夜场票',m:'夜场 40元/人（日场 80元）；60 周岁以上凭证件免票。国庆法定节假日无免费名额，平日 2000 张免费票需 0 点抢'}}
  ],
  meals:[{t:'早餐',v:'开封锅贴 / 胡辣汤'},{t:'午餐',v:'安阳扁粉菜、道口烧鸡'},{t:'晚餐',v:'安阳烩面、粉浆饭'}],
  stay:{place:'安阳站·文峰塔片区',nights:'9/30 1晚',hotel:'城市便捷安阳火车站文峰塔店',price:114,cancel:'9/30 18:00 前可免费取消'},
@@ -789,7 +792,7 @@ var DAYS = [
 },
 {
  id:'d6', n:6, date:'2026-10-01', wd:'周四', title:'安阳 → 信阳', city:'信阳',
- drive:{km:420,h:5,toll:0,tollFree:true,depart:'13:00',arrive:'约18:00（信阳）',road:'安阳 → 信阳（京港澳高速一线，国庆免费首日，越早越好）'},
+ drive:{km:487,h:5.5,toll:0,tollFree:true,depart:'13:00',arrive:'约18:30（信阳）',road:'安阳 → 信阳（京港澳高速一线 487km，国庆免费首日，越早越好）'},
  route:{type:'drive',pts:[
    {n:'安阳（城市便捷·安阳站）',c:P(114.342155,36.101895)},
    {n:'信阳',c:P(114.09,32.13)}]},
@@ -937,7 +940,7 @@ var TIPS = [
  ['🛣️ 高速与驾驶',[
   '免费时段 <b>10/1 00:00 – 10/7 24:00</b>，7座及以下小客车，以<b>驶离收费站</b>时间为准；中秋假期（9/25–27）不免费。',
   'ETC 用户免费时段内走 ETC 通道不会扣费；若入口在免费前、出口在免费时段内，全程免费。',
-  '全程 2512km，最长单日 473km/5h。建议每 2h 进服务区活动 10 分钟，长辈尤其需要。',
+  '全程 2816km，最长单日 <b>487km/5.5h</b>（Day6 安阳 → 信阳）。建议每 2h 进服务区活动 10 分钟，长辈尤其需要。',
   '加油：河南、湖北、湖南段服务区密集；进入湖南前可在荆州补满。'
  ]],
  ['🏛️ 博物馆通关',[
@@ -974,7 +977,7 @@ var EVENTS = [
  {t:'2026-09-28T10:00',tag:'出发',n:'Day3 寿县出发 → 开封（411km）',m:'周一，博物馆闭馆已避开'},
  {t:'2026-09-29T09:00',tag:'行程',n:'Day4 开封市博物馆（须已预约）',m:'16:00 停止入馆'},
  {t:'2026-09-30T10:00',tag:'出发',n:'Day5 开封出发 → 安阳（215km）',m:''},
- {t:'2026-10-01T08:30',tag:'出发',n:'Day6 安阳上午 → 午饭后出发 → 信阳',m:'高速免费首日，越早越好'},
+ {t:'2026-10-01T08:30',tag:'出发',n:'Day6 安阳上午 → 午饭后出发 → 信阳（487km）',m:'487km/5.5h · 高速免费首日，越早越好'},
  {t:'2026-10-02T09:00',tag:'行程',n:'Day7 信阳博物馆 → 赊店古镇 → 南阳',m:'府衙已挪走，今天从容'},
  {t:'2026-10-03T08:00',tag:'行程',n:'Day8 南阳府衙 8:00–9:00 → 汉画馆 9:15',m:'府衙长辈免票，带身份证'},
  {t:'2026-10-04T12:30',tag:'出发',n:'Day9 襄阳 → 岳阳（392km）',m:'建议提前到 12:30'},
@@ -1950,7 +1953,7 @@ function tick(){
   /* 全行程结束 */
   document.getElementById('nowTag').textContent='行程已结束';
   document.getElementById('nowTitle').textContent='🎉 这趟环线跑完了，平安到家';
-  document.getElementById('nowNote').textContent='2512km · 皖豫鄂湘 · 下一趟去哪儿？';
+  document.getElementById('nowNote').textContent='2816km · 皖豫鄂湘 · 下一趟去哪儿？';
   ['cdD','cdH','cdM','cdS'].forEach(function(id){document.getElementById(id).textContent='00';});
 }
 
